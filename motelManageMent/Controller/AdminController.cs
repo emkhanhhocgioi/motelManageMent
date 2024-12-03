@@ -82,7 +82,7 @@ namespace motelManageMent.Controller
             {
                 MessageBox.Show("Không thể kết nối với cơ sở dữ liệu.");
             }
-            return null; // Trả về false nếu đăng nhập thất bại
+            return null; 
         }
 
 
