@@ -63,8 +63,6 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.GradientActiveCaption;
-            panel1.Controls.Add(alertloginpassword);
-            panel1.Controls.Add(alertlogingmail);
             panel1.Controls.Add(panel2);
             panel1.Controls.Add(label4);
             panel1.Controls.Add(label3);
@@ -86,6 +84,8 @@
             panel1.Controls.Add(GmailLogintxt);
             panel1.Controls.Add(loginbtn);
             panel1.Controls.Add(signupbtn);
+            panel1.Controls.Add(alertlogingmail);
+            panel1.Controls.Add(alertloginpassword);
             panel1.Location = new Point(1, 0);
             panel1.Name = "panel1";
             panel1.Size = new Size(1025, 724);

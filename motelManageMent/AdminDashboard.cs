@@ -20,6 +20,8 @@ namespace motelManageMent
         private string id = "";
         private string phone = "";
         private static int selecteRoomID;
+        private int selectedCustomerID;
+
         public AdminDashboard(Admin adm)
         {
 
@@ -65,9 +67,21 @@ namespace motelManageMent
             comboBox1.SelectedIndex = 0;
 
             RoomGridView.ReadOnly = true;
-            RoomGridView.CellContentClick += RoomGridView_CellContentClick;
 
 
+            CustomerGrid.ReadOnly = true;
+            CustomerGrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
+
+            HideTabHeader(tabControl1);
+            renderromtocombobox();
+        }
+        private void HideTabHeader(TabControl tabControl)
+        {
+            tabControl.Appearance = TabAppearance.Normal;
+            tabControl.ItemSize = new Size(0, 1);
+            tabControl.SizeMode = TabSizeMode.Fixed;
+            tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
+            tabControl.DrawItem += (s, e) => { };
         }
         private void TabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
@@ -114,16 +128,34 @@ namespace motelManageMent
             {
             }
         }
+        public void renderCustomerGridView()
+        {
+            try
+            {
+                CustomerController customercl = new CustomerController();
+                List<Customer> customers = customercl.GetCustomerList();
+
+                CustomerGrid.DataSource = customers;
+
+
+            }
+            catch (Exception ex)
+            {
+            }
+
+        }
         private void AdminDashboard_Load(object sender, EventArgs e)
         {
             label3.Text = username;
             label2.Text = id;
 
+            renderCustomerGridView();
             RenderRoomGridView();
 
 
 
         }
+
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
@@ -244,5 +276,192 @@ namespace motelManageMent
                 MessageBox.Show(ex.Message);
             }
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 0;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 1;
+        }
+
+        private void label9_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label6_Click(object sender, EventArgs e)
+        {
+
+        }
+        private byte[] getPhoto(PictureBox ptbox)
+        {
+            MemoryStream stream = new MemoryStream();
+            ptbox.Image.Save(stream, ptbox.Image.RawFormat);
+            return stream.GetBuffer();
+        }
+        private void uploadcustomerBtn_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select an Image";
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBox1.Image = new Bitmap(openFileDialog.FileName);
+
+
+
+                }
+            }
+        }
+
+        private void button6_Click(object sender, EventArgs e)
+        {
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Title = "Select an Image";
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;*.bmp";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    pictureBox2.Image = new Bitmap(openFileDialog.FileName);
+                }
+            }
+        }
+        private void renderromtocombobox()
+        {
+            try
+            {
+                RoomController roomController = new RoomController();
+                List<Room> rooms = roomController.RenderRooms();
+
+                foreach (Room room in rooms)
+                {
+                    RoomCombox.Items.Add(new KeyValuePair<string, int>($"Phòng số: {room.RoomNumber}/Kiểu phòng: {room.RoomType}", room.Id
+ ));
+
+
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("" + ex);
+            }
+        }
+
+
+        public int GetGender()
+        {
+            if (MaleCb.Checked)
+            {
+
+                return 0;
+            }
+            if (WomenCb.Checked)
+            {
+
+                return 1;
+            }
+            return 2;
+
+        }
+        private void button8_Click(object sender, EventArgs e)
+        {
+
+            try
+            {
+                string cname = CustomerNameTxt.Text;
+                int rid = int.Parse(RIDtxt.Text);
+                DateTime dt = DOBpicker.Value;
+                int gender = GetGender();
+                KeyValuePair<string, int> selectedRoom = (KeyValuePair<string, int>)RoomCombox.SelectedItem;
+                string roomInfo = selectedRoom.Key;
+                int roomId = selectedRoom.Value;
+                byte[] FimageData = getPhoto(pictureBox1);
+                byte[] BimageData = getPhoto(pictureBox2);
+
+                CustomerController customerController = new CustomerController();
+                customerController.InsertNewCustomer(cname, rid, dt, gender, roomId, FimageData, BimageData);
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+
+
+        }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 2;
+        }
+
+        private void CustomerGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)  
+            {
+                int rowIndex = e.RowIndex;
+
+             
+                Customer customer = new Customer();
+
+          
+                for (int columnIndex = 0; columnIndex < CustomerGrid.Columns.Count; columnIndex++)
+                {
+              
+                    string columnName = CustomerGrid.Columns[columnIndex].Name;
+
+             
+                    if (CustomerGrid.Rows[rowIndex].Cells[columnIndex].Value != DBNull.Value)
+                    {
+                        var cellValue = CustomerGrid.Rows[rowIndex].Cells[columnIndex].Value;
+
+                        
+                        switch (columnName)
+                        {
+                            case "CustomerID":
+                                customer.CustomerID = Convert.ToInt32(cellValue);
+                                break; 
+                            case "CustomerName":
+                                customer.CustomerName = cellValue.ToString();
+                                break; 
+                            case "ResidentID":
+                                customer.ResidentID = Convert.ToInt32(cellValue);
+                                break; 
+                            case "DOB":
+                                customer.DOB = Convert.ToDateTime(cellValue);
+                                break; 
+                            case "Gender":
+                                customer.Gender = Convert.ToInt32(cellValue);  
+                                break;
+                            case "RoomID":
+                                customer.RoomID = Convert.ToInt32(cellValue);
+                                break; 
+                            case "FImage":
+                                customer.FImage = (byte[])cellValue; 
+                                break; 
+                            case "BImage":
+                                customer.BImage = (byte[])cellValue; 
+                                break; 
+                            default:
+                                break;
+                        }
+                    }
+                }
+                CustomerData ctd = new CustomerData(customer);
+                ctd.Visible = true;
+              
+
+
+            }
+        }
     }
+
+
+
 }

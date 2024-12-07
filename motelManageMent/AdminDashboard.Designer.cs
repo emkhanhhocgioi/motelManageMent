@@ -43,6 +43,32 @@
             label4 = new Label();
             CreateRoomTitle = new Label();
             tabPage2 = new TabPage();
+            panel5 = new Panel();
+            pictureBox2 = new PictureBox();
+            label8 = new Label();
+            pictureBox1 = new PictureBox();
+            button9 = new Button();
+            button8 = new Button();
+            RoomCombox = new ComboBox();
+            label14 = new Label();
+            WomenCb = new CheckBox();
+            MaleCb = new CheckBox();
+            DOBpicker = new DateTimePicker();
+            RIDtxt = new TextBox();
+            CustomerNameTxt = new TextBox();
+            label12 = new Label();
+            label11 = new Label();
+            label10 = new Label();
+            label9 = new Label();
+            label7 = new Label();
+            button6 = new Button();
+            uploadcustomerBtn = new Button();
+            label6 = new Label();
+            tabPage3 = new TabPage();
+            panel6 = new Panel();
+            panel7 = new Panel();
+            label13 = new Label();
+            CustomerGrid = new DataGridView();
             panel2 = new Panel();
             button5 = new Button();
             button4 = new Button();
@@ -58,6 +84,14 @@
             tabPage1.SuspendLayout();
             panel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)RoomGridView).BeginInit();
+            tabPage2.SuspendLayout();
+            panel5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            tabPage3.SuspendLayout();
+            panel6.SuspendLayout();
+            panel7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)CustomerGrid).BeginInit();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -84,6 +118,7 @@
             // 
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
+            tabControl1.Controls.Add(tabPage3);
             tabControl1.Location = new Point(0, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -203,6 +238,7 @@
             // 
             // tabPage2
             // 
+            tabPage2.Controls.Add(panel5);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -210,6 +246,262 @@
             tabPage2.TabIndex = 1;
             tabPage2.Text = "tabPage2";
             tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // panel5
+            // 
+            panel5.BackColor = Color.SlateGray;
+            panel5.Controls.Add(pictureBox2);
+            panel5.Controls.Add(label8);
+            panel5.Controls.Add(pictureBox1);
+            panel5.Controls.Add(button9);
+            panel5.Controls.Add(button8);
+            panel5.Controls.Add(RoomCombox);
+            panel5.Controls.Add(label14);
+            panel5.Controls.Add(WomenCb);
+            panel5.Controls.Add(MaleCb);
+            panel5.Controls.Add(DOBpicker);
+            panel5.Controls.Add(RIDtxt);
+            panel5.Controls.Add(CustomerNameTxt);
+            panel5.Controls.Add(label12);
+            panel5.Controls.Add(label11);
+            panel5.Controls.Add(label10);
+            panel5.Controls.Add(label9);
+            panel5.Controls.Add(label7);
+            panel5.Controls.Add(button6);
+            panel5.Controls.Add(uploadcustomerBtn);
+            panel5.Controls.Add(label6);
+            panel5.Location = new Point(0, 0);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(820, 693);
+            panel5.TabIndex = 0;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.BackColor = Color.Azure;
+            pictureBox2.Location = new Point(6, 321);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(316, 207);
+            pictureBox2.TabIndex = 28;
+            pictureBox2.TabStop = false;
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(6, 303);
+            label8.Name = "label8";
+            label8.Size = new Size(153, 15);
+            label8.TabIndex = 27;
+            label8.Text = "Mặt sau căn cước công dân";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.BackColor = Color.Azure;
+            pictureBox1.Location = new Point(3, 53);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(316, 207);
+            pictureBox1.TabIndex = 26;
+            pictureBox1.TabStop = false;
+            // 
+            // button9
+            // 
+            button9.Location = new Point(539, 308);
+            button9.Name = "button9";
+            button9.Size = new Size(113, 54);
+            button9.TabIndex = 24;
+            button9.Text = "D.S Khách Hàng";
+            button9.UseVisualStyleBackColor = true;
+            button9.Click += button9_Click;
+            // 
+            // button8
+            // 
+            button8.Location = new Point(424, 308);
+            button8.Name = "button8";
+            button8.Size = new Size(109, 54);
+            button8.TabIndex = 23;
+            button8.Text = "Thêm";
+            button8.UseVisualStyleBackColor = true;
+            button8.Click += button8_Click;
+            // 
+            // RoomCombox
+            // 
+            RoomCombox.FormattingEnabled = true;
+            RoomCombox.Location = new Point(424, 246);
+            RoomCombox.Name = "RoomCombox";
+            RoomCombox.Size = new Size(200, 23);
+            RoomCombox.TabIndex = 22;
+            // 
+            // label14
+            // 
+            label14.AutoSize = true;
+            label14.Location = new Point(325, 246);
+            label14.Name = "label14";
+            label14.Size = new Size(64, 15);
+            label14.TabIndex = 21;
+            label14.Text = "Số phòng :";
+            // 
+            // WomenCb
+            // 
+            WomenCb.AutoSize = true;
+            WomenCb.Location = new Point(632, 202);
+            WomenCb.Name = "WomenCb";
+            WomenCb.Size = new Size(42, 19);
+            WomenCb.TabIndex = 18;
+            WomenCb.Text = "Nữ";
+            WomenCb.UseVisualStyleBackColor = true;
+            // 
+            // MaleCb
+            // 
+            MaleCb.AutoSize = true;
+            MaleCb.Location = new Point(424, 202);
+            MaleCb.Name = "MaleCb";
+            MaleCb.Size = new Size(52, 19);
+            MaleCb.TabIndex = 17;
+            MaleCb.Text = "Nam";
+            MaleCb.UseVisualStyleBackColor = true;
+            // 
+            // DOBpicker
+            // 
+            DOBpicker.Location = new Point(424, 150);
+            DOBpicker.Name = "DOBpicker";
+            DOBpicker.Size = new Size(200, 23);
+            DOBpicker.TabIndex = 16;
+            // 
+            // RIDtxt
+            // 
+            RIDtxt.Location = new Point(424, 105);
+            RIDtxt.Name = "RIDtxt";
+            RIDtxt.Size = new Size(291, 23);
+            RIDtxt.TabIndex = 13;
+            // 
+            // CustomerNameTxt
+            // 
+            CustomerNameTxt.Location = new Point(424, 53);
+            CustomerNameTxt.Name = "CustomerNameTxt";
+            CustomerNameTxt.Size = new Size(291, 23);
+            CustomerNameTxt.TabIndex = 12;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(325, 202);
+            label12.Name = "label12";
+            label12.Size = new Size(58, 15);
+            label12.TabIndex = 11;
+            label12.Text = "Giới tính :";
+            // 
+            // label11
+            // 
+            label11.AutoSize = true;
+            label11.Location = new Point(325, 156);
+            label11.Name = "label11";
+            label11.Size = new Size(67, 15);
+            label11.TabIndex = 10;
+            label11.Text = "Ngày Sinh :";
+            // 
+            // label10
+            // 
+            label10.AutoSize = true;
+            label10.Location = new Point(325, 109);
+            label10.Name = "label10";
+            label10.Size = new Size(58, 15);
+            label10.TabIndex = 9;
+            label10.Text = "Số CCCD:";
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(325, 61);
+            label9.Name = "label9";
+            label9.Size = new Size(99, 15);
+            label9.TabIndex = 8;
+            label9.Text = "Tên Khách Hàng :";
+            label9.Click += label9_Click;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(3, 23);
+            label7.Name = "label7";
+            label7.Size = new Size(163, 15);
+            label7.TabIndex = 5;
+            label7.Text = "Mặt trước căn cước công dân";
+            // 
+            // button6
+            // 
+            button6.Location = new Point(6, 534);
+            button6.Name = "button6";
+            button6.Size = new Size(75, 22);
+            button6.TabIndex = 4;
+            button6.Text = "tải ảnh lên";
+            button6.UseVisualStyleBackColor = true;
+            button6.Click += button6_Click;
+            // 
+            // uploadcustomerBtn
+            // 
+            uploadcustomerBtn.Location = new Point(6, 266);
+            uploadcustomerBtn.Name = "uploadcustomerBtn";
+            uploadcustomerBtn.Size = new Size(75, 22);
+            uploadcustomerBtn.TabIndex = 3;
+            uploadcustomerBtn.Text = "tải ảnh lên";
+            uploadcustomerBtn.UseVisualStyleBackColor = true;
+            uploadcustomerBtn.Click += uploadcustomerBtn_Click;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(325, 23);
+            label6.Name = "label6";
+            label6.Size = new Size(118, 15);
+            label6.TabIndex = 1;
+            label6.Text = "Quản Lý Khách Hàng";
+            label6.Click += label6_Click;
+            // 
+            // tabPage3
+            // 
+            tabPage3.Controls.Add(panel6);
+            tabPage3.Location = new Point(4, 24);
+            tabPage3.Name = "tabPage3";
+            tabPage3.Padding = new Padding(3);
+            tabPage3.Size = new Size(816, 689);
+            tabPage3.TabIndex = 2;
+            tabPage3.Text = "tabPage3";
+            tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // panel6
+            // 
+            panel6.Controls.Add(panel7);
+            panel6.Location = new Point(0, 0);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(816, 693);
+            panel6.TabIndex = 0;
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.SlateGray;
+            panel7.Controls.Add(label13);
+            panel7.Controls.Add(CustomerGrid);
+            panel7.Location = new Point(1, 3);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(815, 687);
+            panel7.TabIndex = 0;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(356, 38);
+            label13.Name = "label13";
+            label13.Size = new Size(131, 15);
+            label13.TabIndex = 1;
+            label13.Text = "Danh Sách Khách Hàng";
+            // 
+            // CustomerGrid
+            // 
+            CustomerGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            CustomerGrid.Location = new Point(3, 74);
+            CustomerGrid.Name = "CustomerGrid";
+            CustomerGrid.Size = new Size(809, 602);
+            CustomerGrid.TabIndex = 0;
+            CustomerGrid.CellContentClick += CustomerGrid_CellClick;
             // 
             // panel2
             // 
@@ -260,17 +552,20 @@
             button2.Name = "button2";
             button2.Size = new Size(200, 108);
             button2.TabIndex = 5;
-            button2.Text = "button2";
+            button2.Text = "Quản Lý Khách Hàng";
             button2.UseVisualStyleBackColor = true;
+            button2.Click += button2_Click;
             // 
             // button1
             // 
+            button1.FlatStyle = FlatStyle.System;
             button1.Location = new Point(0, 136);
             button1.Name = "button1";
             button1.Size = new Size(200, 108);
             button1.TabIndex = 4;
-            button1.Text = "button1";
+            button1.Text = "Quản lý phòng";
             button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // label3
             // 
@@ -315,6 +610,16 @@
             panel4.ResumeLayout(false);
             panel4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)RoomGridView).EndInit();
+            tabPage2.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            panel5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            tabPage3.ResumeLayout(false);
+            panel6.ResumeLayout(false);
+            panel7.ResumeLayout(false);
+            panel7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)CustomerGrid).EndInit();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
@@ -346,5 +651,31 @@
         private Button InsertRoomBtn;
         private DataGridView RoomGridView;
         private ComboBox comboBox1;
+        private Panel panel5;
+        private Label label6;
+        private Button uploadcustomerBtn;
+        private Label label12;
+        private Label label11;
+        private Label label10;
+        private Label label9;
+        private Label label7;
+        private Button button6;
+        private TextBox RIDtxt;
+        private TextBox CustomerNameTxt;
+        private CheckBox WomenCb;
+        private CheckBox MaleCb;
+        private DateTimePicker DOBpicker;
+        private Label label14;
+        private ComboBox RoomCombox;
+        private Button button9;
+        private Button button8;
+        private PictureBox pictureBox1;
+        private PictureBox pictureBox2;
+        private Label label8;
+        private TabPage tabPage3;
+        private Panel panel6;
+        private Panel panel7;
+        private Label label13;
+        private DataGridView CustomerGrid;
     }
 }
