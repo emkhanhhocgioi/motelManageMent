@@ -1,5 +1,6 @@
 ﻿using motelManageMent.Controller;
 using motelManageMent.Model;
+using motelManageMent.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -49,6 +50,8 @@ namespace motelManageMent
             this.tabPage1.Text = "Trang 1";
             this.tabPage1.UseVisualStyleBackColor = true;
 
+            //serchres 
+            listView1.View = View.List;
             // TabPage2 settings
             this.tabPage2.BackColor = Color.LightGreen;
             this.tabPage2.Location = new Point(4, 24);
@@ -66,6 +69,12 @@ namespace motelManageMent
 
             comboBox1.SelectedIndex = 0;
 
+            comboBox2.Items.Add(new KeyValuePair<int, string>(0, "Phòng trống"));
+            comboBox2.Items.Add(new KeyValuePair<int, string>(1, "Phòng đang cho thuê"));
+            comboBox2.Items.Add(new KeyValuePair<int, string>(2, "Phòng đang bảo trì"));
+
+            comboBox2.SelectedIndex = 0;
+
             RoomGridView.ReadOnly = true;
 
 
@@ -73,7 +82,7 @@ namespace motelManageMent
             CustomerGrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
             HideTabHeader(tabControl1);
-            renderromtocombobox();
+
         }
         private void HideTabHeader(TabControl tabControl)
         {
@@ -123,6 +132,7 @@ namespace motelManageMent
                 RoomGridView.Columns["Id"].HeaderText = "Room ID";
                 RoomGridView.Columns["RoomType"].HeaderText = "Room Type";
                 RoomGridView.Columns["RoomNumber"].HeaderText = "Room Number";
+                RoomGridView.Columns["IsOccupied"].HeaderText = "Room status";
             }
             catch (Exception ex)
             {
@@ -152,7 +162,7 @@ namespace motelManageMent
             renderCustomerGridView();
             RenderRoomGridView();
 
-
+            listView1.ItemActivate += ListView1_ItemActivate;
 
         }
 
@@ -234,7 +244,7 @@ namespace motelManageMent
 
             if (e.RowIndex >= 0)
             {
-                // Get the clicked row index
+
                 int rowIndex = e.RowIndex;
 
 
@@ -260,15 +270,16 @@ namespace motelManageMent
 
                 string type = comboBox1.SelectedItem.ToString();
                 int number = int.Parse(NumberTxt.Text);
+                int ocupied = ((KeyValuePair<int, string>)comboBox2.SelectedItem).Key;
+                MessageBox.Show("" + ocupied);
 
-                // Assuming 'selectedRoomID' is properly assigned earlier in your code
                 if (selecteRoomID == 0)
                 {
                     MessageBox.Show("Please select a room to update.");
                     return;
                 }
 
-                rcl.UpdateRoom(selecteRoomID, type, number);
+                rcl.UpdateRoom(selecteRoomID, type, number, ocupied);
                 RenderRoomGridView();
             }
             catch (Exception ex)
@@ -332,26 +343,7 @@ namespace motelManageMent
                 }
             }
         }
-        private void renderromtocombobox()
-        {
-            try
-            {
-                RoomController roomController = new RoomController();
-                List<Room> rooms = roomController.RenderRooms();
 
-                foreach (Room room in rooms)
-                {
-                    RoomCombox.Items.Add(new KeyValuePair<string, int>($"Phòng số: {room.RoomNumber}/Kiểu phòng: {room.RoomType}", room.Id
- ));
-
-
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("" + ex);
-            }
-        }
 
 
         public int GetGender()
@@ -378,15 +370,14 @@ namespace motelManageMent
                 int rid = int.Parse(RIDtxt.Text);
                 DateTime dt = DOBpicker.Value;
                 int gender = GetGender();
-                KeyValuePair<string, int> selectedRoom = (KeyValuePair<string, int>)RoomCombox.SelectedItem;
-                string roomInfo = selectedRoom.Key;
-                int roomId = selectedRoom.Value;
+
+                int roomId = int.Parse(phonecustomertxt.Text);
                 byte[] FimageData = getPhoto(pictureBox1);
                 byte[] BimageData = getPhoto(pictureBox2);
 
                 CustomerController customerController = new CustomerController();
                 customerController.InsertNewCustomer(cname, rid, dt, gender, roomId, FimageData, BimageData);
-
+                renderCustomerGridView();
             }
             catch (Exception ex)
             {
@@ -403,51 +394,52 @@ namespace motelManageMent
 
         private void CustomerGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            if (e.RowIndex >= 0)  
+            if (e.RowIndex >= 0)
             {
                 int rowIndex = e.RowIndex;
 
-             
+
                 Customer customer = new Customer();
 
-          
+
                 for (int columnIndex = 0; columnIndex < CustomerGrid.Columns.Count; columnIndex++)
                 {
-              
+
                     string columnName = CustomerGrid.Columns[columnIndex].Name;
 
-             
+
                     if (CustomerGrid.Rows[rowIndex].Cells[columnIndex].Value != DBNull.Value)
                     {
                         var cellValue = CustomerGrid.Rows[rowIndex].Cells[columnIndex].Value;
 
-                        
+
                         switch (columnName)
                         {
                             case "CustomerID":
                                 customer.CustomerID = Convert.ToInt32(cellValue);
-                                break; 
+                                break;
                             case "CustomerName":
                                 customer.CustomerName = cellValue.ToString();
-                                break; 
+                                break;
                             case "ResidentID":
                                 customer.ResidentID = Convert.ToInt32(cellValue);
-                                break; 
+                                break;
                             case "DOB":
                                 customer.DOB = Convert.ToDateTime(cellValue);
-                                break; 
-                            case "Gender":
-                                customer.Gender = Convert.ToInt32(cellValue);  
                                 break;
-                            case "RoomID":
-                                customer.RoomID = Convert.ToInt32(cellValue);
-                                break; 
+                            case "Gender":
+                                customer.Gender = Convert.ToInt32(cellValue);
+                                break;
+                            case "PhoneNumber":
+                                customer.PhoneNumber = Convert.ToInt32(cellValue);
+
+                                break;
                             case "FImage":
-                                customer.FImage = (byte[])cellValue; 
-                                break; 
+                                customer.FImage = (byte[])cellValue;
+                                break;
                             case "BImage":
-                                customer.BImage = (byte[])cellValue; 
-                                break; 
+                                customer.BImage = (byte[])cellValue;
+                                break;
                             default:
                                 break;
                         }
@@ -455,10 +447,58 @@ namespace motelManageMent
                 }
                 CustomerData ctd = new CustomerData(customer);
                 ctd.Visible = true;
-              
+
 
 
             }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 3;
+
+        }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (searchCustomer.Text.Length > 0)
+            {
+                listView1.Visible = true;
+                try
+                {
+                    SearchHelper searchHelper = new SearchHelper();
+                    CustomerController customerController = new CustomerController();
+                    List<Customer> customers = customerController.GetCustomerList();
+                    string[] searchdata = searchHelper.SearchChing(customers, searchCustomer.Text);
+                    listView1.Clear();
+
+                    foreach (string data in searchdata)
+                    {
+
+                        if (!listView1.Items.ContainsKey(data))
+                        {
+                            ListViewItem item = new ListViewItem(data);
+                            item.Name = data;
+                            listView1.Items.Add(item);
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+            }
+           
+        }
+        private void ListView1_ItemActivate(object sender, EventArgs e)
+        {
+         
+            ListViewItem clickedItem = listView1.SelectedItems[0];
+            listView1.Visible = false;
+            
         }
     }
 

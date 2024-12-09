@@ -33,6 +33,8 @@
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             panel4 = new Panel();
+            label15 = new Label();
+            comboBox2 = new ComboBox();
             comboBox1 = new ComboBox();
             UpdateRoomBtn = new Button();
             DeleteRoomBtn = new Button();
@@ -44,12 +46,12 @@
             CreateRoomTitle = new Label();
             tabPage2 = new TabPage();
             panel5 = new Panel();
+            phonecustomertxt = new TextBox();
             pictureBox2 = new PictureBox();
             label8 = new Label();
             pictureBox1 = new PictureBox();
             button9 = new Button();
             button8 = new Button();
-            RoomCombox = new ComboBox();
             label14 = new Label();
             WomenCb = new CheckBox();
             MaleCb = new CheckBox();
@@ -69,6 +71,12 @@
             panel7 = new Panel();
             label13 = new Label();
             CustomerGrid = new DataGridView();
+            tabPage4 = new TabPage();
+            panel8 = new Panel();
+            listView1 = new ListView();
+            searchCustomer = new TextBox();
+            addorder = new Button();
+            label16 = new Label();
             panel2 = new Panel();
             button5 = new Button();
             button4 = new Button();
@@ -92,6 +100,8 @@
             panel6.SuspendLayout();
             panel7.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)CustomerGrid).BeginInit();
+            tabPage4.SuspendLayout();
+            panel8.SuspendLayout();
             panel2.SuspendLayout();
             SuspendLayout();
             // 
@@ -119,6 +129,7 @@
             tabControl1.Controls.Add(tabPage1);
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
+            tabControl1.Controls.Add(tabPage4);
             tabControl1.Location = new Point(0, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -139,6 +150,8 @@
             // panel4
             // 
             panel4.BackColor = Color.LightSlateGray;
+            panel4.Controls.Add(label15);
+            panel4.Controls.Add(comboBox2);
             panel4.Controls.Add(comboBox1);
             panel4.Controls.Add(UpdateRoomBtn);
             panel4.Controls.Add(DeleteRoomBtn);
@@ -153,6 +166,23 @@
             panel4.Size = new Size(813, 689);
             panel4.TabIndex = 0;
             // 
+            // label15
+            // 
+            label15.AutoSize = true;
+            label15.Location = new Point(114, 138);
+            label15.Name = "label15";
+            label15.Size = new Size(80, 15);
+            label15.TabIndex = 11;
+            label15.Text = "Room Status :";
+            // 
+            // comboBox2
+            // 
+            comboBox2.FormattingEnabled = true;
+            comboBox2.Location = new Point(210, 138);
+            comboBox2.Name = "comboBox2";
+            comboBox2.Size = new Size(279, 23);
+            comboBox2.TabIndex = 10;
+            // 
             // comboBox1
             // 
             comboBox1.FormattingEnabled = true;
@@ -164,7 +194,7 @@
             // 
             // UpdateRoomBtn
             // 
-            UpdateRoomBtn.Location = new Point(400, 152);
+            UpdateRoomBtn.Location = new Point(400, 202);
             UpdateRoomBtn.Name = "UpdateRoomBtn";
             UpdateRoomBtn.Size = new Size(89, 38);
             UpdateRoomBtn.TabIndex = 8;
@@ -174,7 +204,7 @@
             // 
             // DeleteRoomBtn
             // 
-            DeleteRoomBtn.Location = new Point(305, 152);
+            DeleteRoomBtn.Location = new Point(305, 202);
             DeleteRoomBtn.Name = "DeleteRoomBtn";
             DeleteRoomBtn.Size = new Size(89, 38);
             DeleteRoomBtn.TabIndex = 7;
@@ -184,7 +214,7 @@
             // 
             // InsertRoomBtn
             // 
-            InsertRoomBtn.Location = new Point(210, 152);
+            InsertRoomBtn.Location = new Point(210, 202);
             InsertRoomBtn.Name = "InsertRoomBtn";
             InsertRoomBtn.Size = new Size(89, 38);
             InsertRoomBtn.TabIndex = 6;
@@ -250,12 +280,12 @@
             // panel5
             // 
             panel5.BackColor = Color.SlateGray;
+            panel5.Controls.Add(phonecustomertxt);
             panel5.Controls.Add(pictureBox2);
             panel5.Controls.Add(label8);
             panel5.Controls.Add(pictureBox1);
             panel5.Controls.Add(button9);
             panel5.Controls.Add(button8);
-            panel5.Controls.Add(RoomCombox);
             panel5.Controls.Add(label14);
             panel5.Controls.Add(WomenCb);
             panel5.Controls.Add(MaleCb);
@@ -274,6 +304,13 @@
             panel5.Name = "panel5";
             panel5.Size = new Size(820, 693);
             panel5.TabIndex = 0;
+            // 
+            // phonecustomertxt
+            // 
+            phonecustomertxt.Location = new Point(424, 243);
+            phonecustomertxt.Name = "phonecustomertxt";
+            phonecustomertxt.Size = new Size(291, 23);
+            phonecustomertxt.TabIndex = 29;
             // 
             // pictureBox2
             // 
@@ -322,22 +359,14 @@
             button8.UseVisualStyleBackColor = true;
             button8.Click += button8_Click;
             // 
-            // RoomCombox
-            // 
-            RoomCombox.FormattingEnabled = true;
-            RoomCombox.Location = new Point(424, 246);
-            RoomCombox.Name = "RoomCombox";
-            RoomCombox.Size = new Size(200, 23);
-            RoomCombox.TabIndex = 22;
-            // 
             // label14
             // 
             label14.AutoSize = true;
             label14.Location = new Point(325, 246);
             label14.Name = "label14";
-            label14.Size = new Size(64, 15);
+            label14.Size = new Size(82, 15);
             label14.TabIndex = 21;
-            label14.Text = "Số phòng :";
+            label14.Text = "Số điện thoại :";
             // 
             // WomenCb
             // 
@@ -503,6 +532,66 @@
             CustomerGrid.TabIndex = 0;
             CustomerGrid.CellContentClick += CustomerGrid_CellClick;
             // 
+            // tabPage4
+            // 
+            tabPage4.Controls.Add(panel8);
+            tabPage4.Location = new Point(4, 24);
+            tabPage4.Name = "tabPage4";
+            tabPage4.Padding = new Padding(3);
+            tabPage4.Size = new Size(816, 689);
+            tabPage4.TabIndex = 3;
+            tabPage4.Text = "tabPage4";
+            tabPage4.UseVisualStyleBackColor = true;
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.SlateGray;
+            panel8.Controls.Add(listView1);
+            panel8.Controls.Add(searchCustomer);
+            panel8.Controls.Add(addorder);
+            panel8.Controls.Add(label16);
+            panel8.Location = new Point(0, 0);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(820, 690);
+            panel8.TabIndex = 0;
+            // 
+            // listView1
+            // 
+            listView1.Location = new Point(116, 88);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(274, 146);
+            listView1.TabIndex = 5;
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.Visible = false;
+            // 
+            // searchCustomer
+            // 
+            searchCustomer.Location = new Point(116, 69);
+            searchCustomer.Name = "searchCustomer";
+            searchCustomer.Size = new Size(274, 23);
+            searchCustomer.TabIndex = 3;
+            searchCustomer.TextChanged += textBox1_TextChanged;
+            // 
+            // addorder
+            // 
+            addorder.Location = new Point(6, 61);
+            addorder.Name = "addorder";
+            addorder.Size = new Size(66, 47);
+            addorder.TabIndex = 2;
+            addorder.Text = "Đặt phòng";
+            addorder.UseVisualStyleBackColor = true;
+            // 
+            // label16
+            // 
+            label16.AutoSize = true;
+            label16.FlatStyle = FlatStyle.Flat;
+            label16.Font = new Font("Segoe UI", 16F, FontStyle.Bold | FontStyle.Italic);
+            label16.Location = new Point(279, 11);
+            label16.Name = "label16";
+            label16.Size = new Size(214, 30);
+            label16.TabIndex = 1;
+            label16.Text = "Quản Lý Đặt Phòng";
+            // 
             // panel2
             // 
             panel2.BackColor = SystemColors.Highlight;
@@ -543,8 +632,9 @@
             button3.Name = "button3";
             button3.Size = new Size(200, 108);
             button3.TabIndex = 6;
-            button3.Text = "button3";
+            button3.Text = "Đặt phòng";
             button3.UseVisualStyleBackColor = true;
+            button3.Click += button3_Click;
             // 
             // button2
             // 
@@ -620,6 +710,9 @@
             panel7.ResumeLayout(false);
             panel7.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)CustomerGrid).EndInit();
+            tabPage4.ResumeLayout(false);
+            panel8.ResumeLayout(false);
+            panel8.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
             ResumeLayout(false);
@@ -666,7 +759,6 @@
         private CheckBox MaleCb;
         private DateTimePicker DOBpicker;
         private Label label14;
-        private ComboBox RoomCombox;
         private Button button9;
         private Button button8;
         private PictureBox pictureBox1;
@@ -677,5 +769,14 @@
         private Panel panel7;
         private Label label13;
         private DataGridView CustomerGrid;
+        private ComboBox comboBox2;
+        private Label label15;
+        private TextBox phonecustomertxt;
+        private TabPage tabPage4;
+        private Panel panel8;
+        private Button addorder;
+        private Label label16;
+        private TextBox searchCustomer;
+        private ListView listView1;
     }
 }

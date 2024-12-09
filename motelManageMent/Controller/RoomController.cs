@@ -54,13 +54,11 @@ namespace motelManageMent.Controller
             }
 
         }
-        public void UpdateRoom(int id, string type, int number)
+        public void UpdateRoom(int id, string type, int number,int ocupied)
         {
             try
             {
-                // Open the connection
-
-
+              
                 db.openConnection(connection);
                 string query = "UPDATE Rooms SET RoomType = @RoomType, RoomNumber = @RoomNumber WHERE RoomID = @RoomID";
 
@@ -70,8 +68,9 @@ namespace motelManageMent.Controller
                     cmd.Parameters.AddWithValue("@RoomType", type);
                     cmd.Parameters.AddWithValue("@RoomNumber", number);
                     cmd.Parameters.AddWithValue("@RoomID", id);
+                    cmd.Parameters.AddWithValue("@IsOccupied", ocupied);
 
-                    // Execute the update command
+     
                     int rowsAffected = cmd.ExecuteNonQuery();
 
                     if (rowsAffected > 0)
@@ -118,7 +117,7 @@ namespace motelManageMent.Controller
                     DataRow row = ds.Tables["Rooms"].NewRow();
                     row["RoomType"] = type;
                     row["RoomNumber"] = number;
-                
+                    row["IsOccupied"] = 0;
                     ds.Tables["Rooms"].Rows.Add(row);
 
 
@@ -148,27 +147,24 @@ namespace motelManageMent.Controller
             {
                 try
                 {
-                    
-                    string query = "SELECT RoomID, RoomType, RoomNumber FROM Rooms";
+                    string query = "SELECT RoomID, RoomType, RoomNumber, IsOccupied FROM Rooms";
 
-                    
                     adapter = new SqlDataAdapter(query, connection);
                     SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
 
-                    
                     ds = new DataSet();
                     adapter.Fill(ds, "Rooms");
 
                     List<Room> rooms = new List<Room>();
 
-                    
                     foreach (DataRow row in ds.Tables["Rooms"].Rows)
                     {
                         Room room = new Room
                         {
-                            Id = Convert.ToInt32(row["RoomID"]),
-                            RoomType = row["RoomType"].ToString(),
-                            RoomNumber = Convert.ToInt32(row["RoomNumber"]),
+                            Id = row["RoomID"] != DBNull.Value ? Convert.ToInt32(row["RoomID"]) : 0, 
+                            RoomType = row["RoomType"] != DBNull.Value ? row["RoomType"].ToString() : "Unknown", 
+                            RoomNumber = row["RoomNumber"] != DBNull.Value ? Convert.ToInt32(row["RoomNumber"]) : 0,
+                            IsOccupied = row["IsOccupied"] != DBNull.Value ? Convert.ToInt32(row["IsOccupied"]) : 0,
                         };
                         rooms.Add(room);
                     }
@@ -177,22 +173,19 @@ namespace motelManageMent.Controller
                 }
                 catch (Exception ex)
                 {
-                 
                     MessageBox.Show("Error loading data: " + ex.Message);
-
-                   
                     return new List<Room>();
                 }
             }
             else
             {
-                // Handle case when the connection is null
                 Console.WriteLine("Could not connect to the database.");
                 return new List<Room>();
             }
         }
 
-    }    
+
+    }
 
 
 

@@ -13,12 +13,14 @@ namespace motelManageMent.Model
         public string RoomType { get; set; }
         public int RoomNumber { get; set; }
 
+        public int IsOccupied { get; set; }
         // Constructor
-        public Room(int id, string roomType, int roomNumber)
+        public Room(int id, string roomType, int roomNumber , int isocupied)
         {
             Id = id;
             RoomType = roomType;
             RoomNumber = roomNumber;
+            IsOccupied = isocupied;
         }
 
         // Default constructor (optional)
