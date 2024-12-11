@@ -12,6 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace motelManageMent
 {
@@ -22,6 +23,21 @@ namespace motelManageMent
         private string phone = "";
         private static int selecteRoomID;
         private int selectedCustomerID;
+        private int selectedRoomID2;
+        private static int searchCusomerInt = 0;
+        private static int searchRoomInt = 0;
+        private static int checkouBID;
+        private static int checkoutRoomID;
+        private static int checkoutCID;
+
+        private static DateTime cDate;
+
+
+        //list<>
+        private static List<Room> rooms;
+        private static List<Customer> customers;
+        private static List<Bookeds> bookedlist;
+        private static AdminDashboard admf;
 
         public AdminDashboard(Admin adm)
         {
@@ -52,6 +68,7 @@ namespace motelManageMent
 
             //serchres 
             listView1.View = View.List;
+            listView2.View = View.List;
             // TabPage2 settings
             this.tabPage2.BackColor = Color.LightGreen;
             this.tabPage2.Location = new Point(4, 24);
@@ -76,12 +93,17 @@ namespace motelManageMent
             comboBox2.SelectedIndex = 0;
 
             RoomGridView.ReadOnly = true;
-
+            OrderGrid.CellFormatting += grid_CellFormatting;
 
             CustomerGrid.ReadOnly = true;
             CustomerGrid.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
 
+            admf = this;
+
             HideTabHeader(tabControl1);
+
+            chart3.Series.Clear();
+
 
         }
         private void HideTabHeader(TabControl tabControl)
@@ -92,12 +114,21 @@ namespace motelManageMent
             tabControl.DrawMode = TabDrawMode.OwnerDrawFixed;
             tabControl.DrawItem += (s, e) => { };
         }
+        private void grid_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
+        {
+            if (e.Value == DBNull.Value)
+            {
+
+                e.Value = "N/A";
+                e.FormattingApplied = true;
+            }
+        }
         private void TabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
-            // Tab item rectangle
+
             Rectangle rect = e.Bounds;
 
-            // Highlight current tab
+
             if (e.Index == tabControl1.SelectedIndex)
             {
                 e.Graphics.FillRectangle(Brushes.LightBlue, rect);
@@ -125,13 +156,13 @@ namespace motelManageMent
             try
             {
                 RoomController rcl = new RoomController();
-                List<Room> rooms = rcl.RenderRooms();
+                rooms = rcl.RenderRooms();
 
                 RoomGridView.DataSource = rooms;
 
                 RoomGridView.Columns["Id"].HeaderText = "Room ID";
                 RoomGridView.Columns["RoomType"].HeaderText = "Room Type";
-                RoomGridView.Columns["RoomNumber"].HeaderText = "Room Number";
+                RoomGridView.Columns["RoomNumber"].HeaderText = "Price";
                 RoomGridView.Columns["IsOccupied"].HeaderText = "Room status";
             }
             catch (Exception ex)
@@ -143,7 +174,7 @@ namespace motelManageMent
             try
             {
                 CustomerController customercl = new CustomerController();
-                List<Customer> customers = customercl.GetCustomerList();
+                customers = customercl.GetCustomerList();
 
                 CustomerGrid.DataSource = customers;
 
@@ -154,6 +185,19 @@ namespace motelManageMent
             }
 
         }
+        public void renderOrderGridView()
+        {
+            try
+            {
+                BookedController booked = new BookedController();
+                bookedlist = booked.RenderOrders();
+                OrderGrid.DataSource = bookedlist;
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
         private void AdminDashboard_Load(object sender, EventArgs e)
         {
             label3.Text = username;
@@ -161,9 +205,10 @@ namespace motelManageMent
 
             renderCustomerGridView();
             RenderRoomGridView();
-
+            renderOrderGridView();
+            ChartRender();
             listView1.ItemActivate += ListView1_ItemActivate;
-
+            listView2.ItemActivate += ListView2_ItemActivate;
         }
 
 
@@ -174,8 +219,7 @@ namespace motelManageMent
 
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //string selectedValue = comboBox1.SelectedItem.ToString();
-            //MessageBox.Show($"Giá trị thực của mục được chọn: {selectedValue}");
+
         }
 
 
@@ -214,6 +258,7 @@ namespace motelManageMent
                 if (result == DialogResult.Yes)
                 {
                     rcl.DeleteRooms(selecteRoomID);
+                    RenderRoomGridView();
                 }
                 else if (result == DialogResult.No)
                 {
@@ -280,6 +325,7 @@ namespace motelManageMent
                 }
 
                 rcl.UpdateRoom(selecteRoomID, type, number, ocupied);
+
                 RenderRoomGridView();
             }
             catch (Exception ex)
@@ -491,13 +537,196 @@ namespace motelManageMent
                 }
 
             }
-           
+
         }
         private void ListView1_ItemActivate(object sender, EventArgs e)
         {
-         
+
             ListViewItem clickedItem = listView1.SelectedItems[0];
+            searchCustomer.Text = clickedItem.Text;
+            string[] parts = clickedItem.Text.Split(':');
+            searchCusomerInt = int.Parse(parts[0]);
             listView1.Visible = false;
+
+        }
+        private void ListView2_ItemActivate(object sender, EventArgs e)
+        {
+
+            ListViewItem clickedItem = listView2.SelectedItems[0];
+            RoomSearchBox.Text = clickedItem.Text;
+            string[] parts = clickedItem.Text.Split(':');
+            string[] split2 = parts[1].Split('|');
+
+            searchRoomInt = int.Parse(split2[0]);
+
+            listView2.Visible = false;
+
+        }
+
+
+
+        private void textBox1_TextChanged_1(object sender, EventArgs e)
+        {
+            if (RoomSearchBox.Text.Length > 0)
+            {
+                listView2.Visible = true;
+                try
+                {
+                    SearchHelper searchHelper = new SearchHelper();
+                    RoomController roomController = new RoomController();
+                    List<Room> roomList = roomController.RenderRooms();
+                    string[] searchData = searchHelper.SearchRoom(roomList, RoomSearchBox.Text);
+
+                    listView2.Clear();
+
+                    foreach (string data in searchData)
+                    {
+
+                        if (!listView2.Items.ContainsKey(data))
+                        {
+                            ListViewItem item = new ListViewItem(data);
+                            item.Name = data;
+                            listView2.Items.Add(item);
+                        }
+                    }
+
+
+                }
+                catch (Exception ex)
+                {
+
+                }
+
+            }
+        }
+
+        private void addorder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                if (searchCusomerInt == 0 && searchRoomInt == 0)
+                {
+
+                    MessageBox.Show("Vui lòng nhập đủ dữ liệu");
+                }
+                else
+                {
+                    BookedController bookedController = new BookedController();
+                    bookedController.createNewOrder(searchRoomInt, searchCusomerInt);
+                    renderOrderGridView();
+                    RenderRoomGridView();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Customer c = new Customer();
+                Room r = new Room();
+
+                foreach (Customer customer in customers)
+                {
+                    if (customer.CustomerID == checkoutCID)
+                    {
+                        c = customer;
+
+                        break;
+                    }
+
+                }
+                foreach (Room room in rooms)
+                {
+                    if (room.Id == checkoutRoomID)
+                    {
+                        r = room;
+                        break;
+                    }
+                }
+                CheckoutDetails newCheckout = new CheckoutDetails(r, c, checkouBID, checkoutRoomID, cDate, admf);
+                newCheckout.Visible = true;
+
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+        private void OrderGrid_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+
+                DataGridViewRow row = OrderGrid.Rows[e.RowIndex];
+
+
+                checkouBID = int.Parse(row.Cells["BID"].Value.ToString());
+                checkoutRoomID = int.Parse(row.Cells["RoomID"].Value.ToString());
+                checkoutCID = int.Parse(row.Cells["CustomerID"].Value.ToString());
+                DateTime.TryParse(row.Cells["Createtime"].Value.ToString(), out cDate);
+
+            }
+        }
+        public void ChartRender()
+        {
+       
+            chart3.Series.Clear();
+
+    
+            Dictionary<string, int> monthData = new Dictionary<string, int>()
+    {
+        { "January", 5000 }, { "February", 7000 }, { "March", 6000 },
+        { "April", 8000 }, { "May", 9000 }, { "June", 11000 },
+        { "July", 10500 }, { "August", 12000 }, { "September", 13000 },
+        { "October", 15000 }, { "November", 16000 }, { "December", 17000 }
+    };
+
+      
+            foreach (var month in monthData)
+            {
+                Series series = new Series(month.Key);
+                series.ChartType = SeriesChartType.Column;
+                series.Points.AddXY(month.Key, month.Value); 
+                series["PointWidth"] = "0.5"; 
+                chart3.Series.Add(series); 
+            }
+
+            
+            ChartArea chartArea = chart3.ChartAreas[0];
+            chartArea.AxisX.Interval = 1; 
+            chartArea.AxisX.IsMarginVisible = false;
+            chartArea.AxisX.Title = "Months"; 
+            chartArea.AxisY.Title = "Money ($)"; 
+
+  
+            chartArea.AxisX.MajorGrid.LineWidth = 0;
+            chartArea.AxisX.LabelStyle.Angle = -45; 
+        }
+
+        public void CharRender2()
+        {
+
+        }
+        
+
+
+
+
+
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            tabControl1.SelectedIndex = 4;
+        }
+
+        private void chart3_Click(object sender, EventArgs e)
+        {
             
         }
     }

@@ -4,24 +4,36 @@ namespace motelManageMent.Model
 {
     public class Bookeds
     {
-      
-        public int BookedID { get; set; }
-        public int RoomID { get; set; }
-        public int CustomerID { get; set; }
-        public DateTime CreateDate { get; set; }
-        public string Status { get; set; }
+    
+        public int BID { get; set; }          
+        public int CustomerID { get; set; }     
+        public string CustomerName { get; set; }
+        public string ResidentID { get; set; }  
+        public string PhoneNumber { get; set; }   
+        public int RoomID { get; set; }        
+        public string RoomType { get; set; }      
+        public DateTime CreateTime { get; set; } 
+        public DateTime EndTime { get; set; }     
+        public int OrderStatus { get; set; }     
 
-      
-        public Bookeds(int bookedID, int roomID, int customerID, DateTime createDate, string status)
+
+        public Bookeds(int bid, int customerID, string customerName, string residentID,
+                             string phoneNumber, int roomID, string roomType,
+                             DateTime createTime, DateTime endTime, int orderStatus)
         {
-            BookedID = bookedID;
-            RoomID = roomID;
+            BID = bid;
             CustomerID = customerID;
-            CreateDate = createDate;
-            Status = status;
+            CustomerName = customerName;
+            ResidentID = residentID;
+            PhoneNumber = phoneNumber;
+            RoomID = roomID;
+            RoomType = roomType;
+            CreateTime = createTime;
+            EndTime = endTime;
+            OrderStatus = orderStatus;
         }
 
-     
+
         public Bookeds() { }
     }
 }

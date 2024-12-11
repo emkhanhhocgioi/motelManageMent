@@ -1,4 +1,6 @@
-﻿namespace motelManageMent
+﻿using System.Windows.Forms;
+
+namespace motelManageMent
 {
     partial class AdminDashboard
     {
@@ -28,11 +30,18 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             panel1 = new Panel();
             panel3 = new Panel();
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
             panel4 = new Panel();
+            label19 = new Label();
             label15 = new Label();
             comboBox2 = new ComboBox();
             comboBox1 = new ComboBox();
@@ -43,9 +52,9 @@
             label5 = new Label();
             NumberTxt = new TextBox();
             label4 = new Label();
-            CreateRoomTitle = new Label();
             tabPage2 = new TabPage();
             panel5 = new Panel();
+            label6 = new Label();
             phonecustomertxt = new TextBox();
             pictureBox2 = new PictureBox();
             label8 = new Label();
@@ -65,7 +74,6 @@
             label7 = new Label();
             button6 = new Button();
             uploadcustomerBtn = new Button();
-            label6 = new Label();
             tabPage3 = new TabPage();
             panel6 = new Panel();
             panel7 = new Panel();
@@ -73,10 +81,28 @@
             CustomerGrid = new DataGridView();
             tabPage4 = new TabPage();
             panel8 = new Panel();
+            button7 = new Button();
+            listView2 = new ListView();
+            RoomSearchBox = new TextBox();
+            label18 = new Label();
+            label17 = new Label();
             listView1 = new ListView();
             searchCustomer = new TextBox();
             addorder = new Button();
             label16 = new Label();
+            OrderGrid = new DataGridView();
+            tabPage5 = new TabPage();
+            panel9 = new Panel();
+            chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            panel10 = new Panel();
+            comboBox3 = new ComboBox();
+            label23 = new Label();
+            label22 = new Label();
+            label21 = new Label();
+            orderSum = new Label();
+            CustomerSum = new Label();
+            RoomSum = new Label();
+            label20 = new Label();
             panel2 = new Panel();
             button5 = new Button();
             button4 = new Button();
@@ -86,6 +112,11 @@
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
+            chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            comboBox4 = new ComboBox();
+            label24 = new Label();
+            comboBox5 = new ComboBox();
+            label25 = new Label();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -102,7 +133,13 @@
             ((System.ComponentModel.ISupportInitialize)CustomerGrid).BeginInit();
             tabPage4.SuspendLayout();
             panel8.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)OrderGrid).BeginInit();
+            tabPage5.SuspendLayout();
+            panel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)chart3).BeginInit();
+            panel10.SuspendLayout();
             panel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)chart4).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -130,6 +167,7 @@
             tabControl1.Controls.Add(tabPage2);
             tabControl1.Controls.Add(tabPage3);
             tabControl1.Controls.Add(tabPage4);
+            tabControl1.Controls.Add(tabPage5);
             tabControl1.Location = new Point(0, 3);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
@@ -150,6 +188,7 @@
             // panel4
             // 
             panel4.BackColor = Color.LightSlateGray;
+            panel4.Controls.Add(label19);
             panel4.Controls.Add(label15);
             panel4.Controls.Add(comboBox2);
             panel4.Controls.Add(comboBox1);
@@ -160,11 +199,21 @@
             panel4.Controls.Add(label5);
             panel4.Controls.Add(NumberTxt);
             panel4.Controls.Add(label4);
-            panel4.Controls.Add(CreateRoomTitle);
             panel4.Location = new Point(3, 0);
             panel4.Name = "panel4";
             panel4.Size = new Size(813, 689);
             panel4.TabIndex = 0;
+            // 
+            // label19
+            // 
+            label19.AutoSize = true;
+            label19.FlatStyle = FlatStyle.Flat;
+            label19.Font = new Font("Segoe UI", 16F, FontStyle.Bold | FontStyle.Italic);
+            label19.Location = new Point(284, 8);
+            label19.Name = "label19";
+            label19.Size = new Size(170, 30);
+            label19.TabIndex = 12;
+            label19.Text = "Quản Lý Phòng";
             // 
             // label15
             // 
@@ -194,7 +243,7 @@
             // 
             // UpdateRoomBtn
             // 
-            UpdateRoomBtn.Location = new Point(400, 202);
+            UpdateRoomBtn.Location = new Point(402, 179);
             UpdateRoomBtn.Name = "UpdateRoomBtn";
             UpdateRoomBtn.Size = new Size(89, 38);
             UpdateRoomBtn.TabIndex = 8;
@@ -204,7 +253,7 @@
             // 
             // DeleteRoomBtn
             // 
-            DeleteRoomBtn.Location = new Point(305, 202);
+            DeleteRoomBtn.Location = new Point(307, 179);
             DeleteRoomBtn.Name = "DeleteRoomBtn";
             DeleteRoomBtn.Size = new Size(89, 38);
             DeleteRoomBtn.TabIndex = 7;
@@ -214,7 +263,7 @@
             // 
             // InsertRoomBtn
             // 
-            InsertRoomBtn.Location = new Point(210, 202);
+            InsertRoomBtn.Location = new Point(212, 179);
             InsertRoomBtn.Name = "InsertRoomBtn";
             InsertRoomBtn.Size = new Size(89, 38);
             InsertRoomBtn.TabIndex = 6;
@@ -237,9 +286,9 @@
             label5.AutoSize = true;
             label5.Location = new Point(114, 109);
             label5.Name = "label5";
-            label5.Size = new Size(89, 15);
+            label5.Size = new Size(68, 15);
             label5.TabIndex = 4;
-            label5.Text = "Room Number:";
+            label5.Text = "Giá phòng :";
             // 
             // NumberTxt
             // 
@@ -257,15 +306,6 @@
             label4.TabIndex = 2;
             label4.Text = "Room Type:";
             // 
-            // CreateRoomTitle
-            // 
-            CreateRoomTitle.AutoSize = true;
-            CreateRoomTitle.Location = new Point(342, 23);
-            CreateRoomTitle.Name = "CreateRoomTitle";
-            CreateRoomTitle.Size = new Size(38, 15);
-            CreateRoomTitle.TabIndex = 0;
-            CreateRoomTitle.Text = "label4";
-            // 
             // tabPage2
             // 
             tabPage2.Controls.Add(panel5);
@@ -280,6 +320,7 @@
             // panel5
             // 
             panel5.BackColor = Color.SlateGray;
+            panel5.Controls.Add(label6);
             panel5.Controls.Add(phonecustomertxt);
             panel5.Controls.Add(pictureBox2);
             panel5.Controls.Add(label8);
@@ -299,11 +340,21 @@
             panel5.Controls.Add(label7);
             panel5.Controls.Add(button6);
             panel5.Controls.Add(uploadcustomerBtn);
-            panel5.Controls.Add(label6);
             panel5.Location = new Point(0, 0);
             panel5.Name = "panel5";
             panel5.Size = new Size(820, 693);
             panel5.TabIndex = 0;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.FlatStyle = FlatStyle.Flat;
+            label6.Font = new Font("Segoe UI", 16F, FontStyle.Bold | FontStyle.Italic);
+            label6.Location = new Point(262, 8);
+            label6.Name = "label6";
+            label6.Size = new Size(229, 30);
+            label6.TabIndex = 30;
+            label6.Text = "Quản Lý Khách Hàng";
             // 
             // phonecustomertxt
             // 
@@ -475,16 +526,6 @@
             uploadcustomerBtn.UseVisualStyleBackColor = true;
             uploadcustomerBtn.Click += uploadcustomerBtn_Click;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(325, 23);
-            label6.Name = "label6";
-            label6.Size = new Size(118, 15);
-            label6.TabIndex = 1;
-            label6.Text = "Quản Lý Khách Hàng";
-            label6.Click += label6_Click;
-            // 
             // tabPage3
             // 
             tabPage3.Controls.Add(panel6);
@@ -517,10 +558,12 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new Point(356, 38);
+            label13.FlatStyle = FlatStyle.Flat;
+            label13.Font = new Font("Segoe UI", 16F, FontStyle.Bold | FontStyle.Italic);
+            label13.Location = new Point(271, 20);
             label13.Name = "label13";
-            label13.Size = new Size(131, 15);
-            label13.TabIndex = 1;
+            label13.Size = new Size(254, 30);
+            label13.TabIndex = 2;
             label13.Text = "Danh Sách Khách Hàng";
             // 
             // CustomerGrid
@@ -546,29 +589,80 @@
             // panel8
             // 
             panel8.BackColor = Color.SlateGray;
+            panel8.Controls.Add(button7);
+            panel8.Controls.Add(listView2);
+            panel8.Controls.Add(RoomSearchBox);
+            panel8.Controls.Add(label18);
+            panel8.Controls.Add(label17);
             panel8.Controls.Add(listView1);
             panel8.Controls.Add(searchCustomer);
             panel8.Controls.Add(addorder);
             panel8.Controls.Add(label16);
+            panel8.Controls.Add(OrderGrid);
             panel8.Location = new Point(0, 0);
             panel8.Name = "panel8";
             panel8.Size = new Size(820, 690);
             panel8.TabIndex = 0;
             // 
+            // button7
+            // 
+            button7.Location = new Point(6, 114);
+            button7.Name = "button7";
+            button7.Size = new Size(66, 47);
+            button7.TabIndex = 13;
+            button7.Text = "Check out";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += button7_Click;
+            // 
+            // listView2
+            // 
+            listView2.Location = new Point(476, 85);
+            listView2.Name = "listView2";
+            listView2.Size = new Size(202, 146);
+            listView2.TabIndex = 11;
+            listView2.UseCompatibleStateImageBehavior = false;
+            listView2.Visible = false;
+            // 
+            // RoomSearchBox
+            // 
+            RoomSearchBox.Location = new Point(476, 66);
+            RoomSearchBox.Name = "RoomSearchBox";
+            RoomSearchBox.Size = new Size(202, 23);
+            RoomSearchBox.TabIndex = 10;
+            RoomSearchBox.TextChanged += textBox1_TextChanged_1;
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Location = new Point(377, 66);
+            label18.Name = "label18";
+            label18.Size = new Size(74, 15);
+            label18.TabIndex = 9;
+            label18.Text = "Chọn phòng";
+            // 
+            // label17
+            // 
+            label17.AutoSize = true;
+            label17.Location = new Point(78, 69);
+            label17.Name = "label17";
+            label17.Size = new Size(85, 15);
+            label17.TabIndex = 7;
+            label17.Text = "KHÁCH HÀNG";
+            // 
             // listView1
             // 
-            listView1.Location = new Point(116, 88);
+            listView1.Location = new Point(169, 85);
             listView1.Name = "listView1";
-            listView1.Size = new Size(274, 146);
+            listView1.Size = new Size(202, 146);
             listView1.TabIndex = 5;
             listView1.UseCompatibleStateImageBehavior = false;
             listView1.Visible = false;
             // 
             // searchCustomer
             // 
-            searchCustomer.Location = new Point(116, 69);
+            searchCustomer.Location = new Point(169, 66);
             searchCustomer.Name = "searchCustomer";
-            searchCustomer.Size = new Size(274, 23);
+            searchCustomer.Size = new Size(202, 23);
             searchCustomer.TabIndex = 3;
             searchCustomer.TextChanged += textBox1_TextChanged;
             // 
@@ -580,6 +674,7 @@
             addorder.TabIndex = 2;
             addorder.Text = "Đặt phòng";
             addorder.UseVisualStyleBackColor = true;
+            addorder.Click += addorder_Click;
             // 
             // label16
             // 
@@ -591,6 +686,151 @@
             label16.Size = new Size(214, 30);
             label16.TabIndex = 1;
             label16.Text = "Quản Lý Đặt Phòng";
+            // 
+            // OrderGrid
+            // 
+            OrderGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            OrderGrid.Location = new Point(55, 178);
+            OrderGrid.Name = "OrderGrid";
+            OrderGrid.Size = new Size(706, 458);
+            OrderGrid.TabIndex = 12;
+            OrderGrid.CellClick += OrderGrid_CellClick;
+            // 
+            // tabPage5
+            // 
+            tabPage5.Controls.Add(panel9);
+            tabPage5.Location = new Point(4, 24);
+            tabPage5.Name = "tabPage5";
+            tabPage5.Padding = new Padding(3);
+            tabPage5.Size = new Size(816, 689);
+            tabPage5.TabIndex = 4;
+            tabPage5.Text = "tabPage5";
+            tabPage5.UseVisualStyleBackColor = true;
+            // 
+            // panel9
+            // 
+            panel9.BackColor = Color.SlateGray;
+            panel9.Controls.Add(chart4);
+            panel9.Controls.Add(chart3);
+            panel9.Controls.Add(panel10);
+            panel9.Controls.Add(label20);
+            panel9.Location = new Point(0, 0);
+            panel9.Name = "panel9";
+            panel9.Size = new Size(817, 693);
+            panel9.TabIndex = 0;
+            // 
+            // chart3
+            // 
+            chartArea4.Name = "ChartArea1";
+            chart3.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            chart3.Legends.Add(legend4);
+            chart3.Location = new Point(13, 44);
+            chart3.Name = "chart3";
+            series4.ChartArea = "ChartArea1";
+            series4.Legend = "Legend1";
+            series4.Name = "Series1";
+            chart3.Series.Add(series4);
+            chart3.Size = new Size(492, 337);
+            chart3.TabIndex = 4;
+            chart3.Text = "chart3";
+            chart3.Click += chart3_Click;
+            // 
+            // panel10
+            // 
+            panel10.BackColor = Color.White;
+            panel10.Controls.Add(comboBox5);
+            panel10.Controls.Add(label25);
+            panel10.Controls.Add(comboBox4);
+            panel10.Controls.Add(label24);
+            panel10.Controls.Add(comboBox3);
+            panel10.Controls.Add(label23);
+            panel10.Controls.Add(label22);
+            panel10.Controls.Add(label21);
+            panel10.Controls.Add(orderSum);
+            panel10.Controls.Add(CustomerSum);
+            panel10.Controls.Add(RoomSum);
+            panel10.Location = new Point(511, 44);
+            panel10.Name = "panel10";
+            panel10.Size = new Size(303, 635);
+            panel10.TabIndex = 3;
+            // 
+            // comboBox3
+            // 
+            comboBox3.FormattingEnabled = true;
+            comboBox3.Location = new Point(147, 48);
+            comboBox3.Name = "comboBox3";
+            comboBox3.Size = new Size(148, 23);
+            comboBox3.TabIndex = 7;
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Location = new Point(25, 51);
+            label23.Name = "label23";
+            label23.Size = new Size(116, 15);
+            label23.TabIndex = 6;
+            label23.Text = " rút gọn theo tháng :";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.FlatStyle = FlatStyle.Flat;
+            label22.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label22.Location = new Point(101, 14);
+            label22.Name = "label22";
+            label22.Size = new Size(80, 21);
+            label22.TabIndex = 5;
+            label22.Text = "Thông số";
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.FlatStyle = FlatStyle.Flat;
+            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label21.Location = new Point(25, 594);
+            label21.Name = "label21";
+            label21.Size = new Size(145, 21);
+            label21.TabIndex = 4;
+            label21.Text = "Tổng Doanh Thu :";
+            // 
+            // orderSum
+            // 
+            orderSum.AutoSize = true;
+            orderSum.Location = new Point(25, 244);
+            orderSum.Name = "orderSum";
+            orderSum.Size = new Size(44, 15);
+            orderSum.TabIndex = 2;
+            orderSum.Text = "label21";
+            // 
+            // CustomerSum
+            // 
+            CustomerSum.AutoSize = true;
+            CustomerSum.Location = new Point(25, 209);
+            CustomerSum.Name = "CustomerSum";
+            CustomerSum.Size = new Size(44, 15);
+            CustomerSum.TabIndex = 1;
+            CustomerSum.Text = "label21";
+            // 
+            // RoomSum
+            // 
+            RoomSum.AutoSize = true;
+            RoomSum.Location = new Point(25, 172);
+            RoomSum.Name = "RoomSum";
+            RoomSum.Size = new Size(44, 15);
+            RoomSum.TabIndex = 0;
+            RoomSum.Text = "label21";
+            // 
+            // label20
+            // 
+            label20.AutoSize = true;
+            label20.FlatStyle = FlatStyle.Flat;
+            label20.Font = new Font("Segoe UI", 16F, FontStyle.Bold | FontStyle.Italic);
+            label20.Location = new Point(290, 11);
+            label20.Name = "label20";
+            label20.Size = new Size(229, 30);
+            label20.TabIndex = 2;
+            label20.Text = "Thống Kê Doanh Thu";
             // 
             // panel2
             // 
@@ -623,8 +863,9 @@
             button4.Name = "button4";
             button4.Size = new Size(200, 108);
             button4.TabIndex = 7;
-            button4.Text = "button4";
+            button4.Text = "Thống kê";
             button4.UseVisualStyleBackColor = true;
+            button4.Click += button4_Click;
             // 
             // button3
             // 
@@ -684,6 +925,56 @@
             label1.TabIndex = 1;
             label1.Text = "label1";
             // 
+            // chart4
+            // 
+            chartArea3.Name = "ChartArea1";
+            chart4.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            chart4.Legends.Add(legend3);
+            chart4.Location = new Point(13, 387);
+            chart4.Name = "chart4";
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            chart4.Series.Add(series3);
+            chart4.Size = new Size(492, 292);
+            chart4.TabIndex = 5;
+            chart4.Text = "chart4";
+            // 
+            // comboBox4
+            // 
+            comboBox4.FormattingEnabled = true;
+            comboBox4.Location = new Point(147, 86);
+            comboBox4.Name = "comboBox4";
+            comboBox4.Size = new Size(148, 23);
+            comboBox4.TabIndex = 9;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(25, 89);
+            label24.Name = "label24";
+            label24.Size = new Size(116, 15);
+            label24.TabIndex = 8;
+            label24.Text = " rút gọn theo tháng :";
+            // 
+            // comboBox5
+            // 
+            comboBox5.FormattingEnabled = true;
+            comboBox5.Location = new Point(147, 126);
+            comboBox5.Name = "comboBox5";
+            comboBox5.Size = new Size(148, 23);
+            comboBox5.TabIndex = 11;
+            // 
+            // label25
+            // 
+            label25.AutoSize = true;
+            label25.Location = new Point(25, 129);
+            label25.Name = "label25";
+            label25.Size = new Size(116, 15);
+            label25.TabIndex = 10;
+            label25.Text = " rút gọn theo tháng :";
+            // 
             // AdminDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -713,8 +1004,16 @@
             tabPage4.ResumeLayout(false);
             panel8.ResumeLayout(false);
             panel8.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)OrderGrid).EndInit();
+            tabPage5.ResumeLayout(false);
+            panel9.ResumeLayout(false);
+            panel9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)chart3).EndInit();
+            panel10.ResumeLayout(false);
+            panel10.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)chart4).EndInit();
             ResumeLayout(false);
         }
 
@@ -735,7 +1034,6 @@
         private TabPage tabPage1;
         private TabPage tabPage2;
         private Panel panel4;
-        private Label CreateRoomTitle;
         private Label label5;
         private TextBox NumberTxt;
         private Label label4;
@@ -745,7 +1043,6 @@
         private DataGridView RoomGridView;
         private ComboBox comboBox1;
         private Panel panel5;
-        private Label label6;
         private Button uploadcustomerBtn;
         private Label label12;
         private Label label11;
@@ -767,7 +1064,6 @@
         private TabPage tabPage3;
         private Panel panel6;
         private Panel panel7;
-        private Label label13;
         private DataGridView CustomerGrid;
         private ComboBox comboBox2;
         private Label label15;
@@ -778,5 +1074,33 @@
         private Label label16;
         private TextBox searchCustomer;
         private ListView listView1;
+        private Label label17;
+        private Label label18;
+        private TextBox RoomSearchBox;
+        private ListView listView2;
+        private DataGridView OrderGrid;
+        private Button button7;
+        private Label label6;
+        private Label label19;
+        private Label label13;
+        private TabPage tabPage5;
+        private Panel panel9;
+        private Label label20;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private Panel panel10;
+        private Label label21;
+        private Label orderSum;
+        private Label CustomerSum;
+        private Label RoomSum;
+        private Label label22;
+        private Label label23;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private ComboBox comboBox3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
+        private ComboBox comboBox5;
+        private Label label25;
+        private ComboBox comboBox4;
+        private Label label24;
     }
 }

@@ -25,14 +25,32 @@ namespace motelManageMent.Service
          
                 if (customer.CustomerName.Contains(pointer))
                 {
-                    results.Add(customer.CustomerName);
+                    results.Add(customer.CustomerID+":"+customer.CustomerName);
                 }
             }
 
 
             return results.ToArray();
         }
-       
+
+        public string[] SearchRoom(List<Room> list, string pointer)
+        {
+            pointer = pointer.Trim();
+            List<string> results = new List<string>();
+
+
+            foreach (var room in list)
+            {
+
+                if (room.Id == int.Parse(pointer) && room.IsOccupied != 1 )
+                {
+                    results.Add("Phòng:"+room.Id+" | "+room.RoomType);
+                }
+            }
+
+
+            return results.ToArray();
+        }
 
     }
 }

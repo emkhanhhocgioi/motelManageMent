@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using motelManageMent.Model;
 using System.Security.Cryptography;
 using System.Xml.Linq;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace motelManageMent.Controller
 {
@@ -32,8 +33,8 @@ namespace motelManageMent.Controller
                 try
                 {
 
-                    string insertQuery = "INSERT INTO booked (RoomID, CustomerID, Createtime, orderstatus) " +
-                                 "VALUES (@RoomID, @CustomerID, @Createtime,@Endtime, @orderstatus)";
+                    string insertQuery = "INSERT INTO booked (RoomID, CustomerID, Createtime,Endtime, orderstatus,orderSum) " +
+                                 "VALUES (@RoomID, @CustomerID, @Createtime,@Endtime, @orderstatus,@orderSum)";
 
                     SqlCommand cmd = new SqlCommand(insertQuery, connection);
 
@@ -41,11 +42,13 @@ namespace motelManageMent.Controller
                     cmd.Parameters.AddWithValue("@CustomerID", cid);
                     DateTime now = DateTime.Now;
                     cmd.Parameters.AddWithValue("@Createtime", now);
-                    cmd.Parameters.AddWithValue("@Endtime", null);
-                    cmd.Parameters.AddWithValue("@orderstatus", 0);
-
+                    cmd.Parameters.AddWithValue("@Endtime", DBNull.Value);
+                    cmd.Parameters.AddWithValue("@orderstatus", 0); 
+                    cmd.Parameters.AddWithValue("@orderSum", DBNull.Value);
                     cmd.ExecuteNonQuery();
+                    changeRoomStatus(rid);
                     MessageBox.Show("Đã thêm vào danh sách !");
+
                 }
                 catch (Exception ex)
                 {
@@ -58,18 +61,100 @@ namespace motelManageMent.Controller
             }
 
         }
-
-        public void RenderCustomers(DataGridView grid)
+        public void changeRoomStatus(int id)
         {
+            try
+            {
+                db.openConnection(connection);
+                string updateQuery = "UPDATE Rooms SET IsOccupied = 1 WHERE   RoomID  = @RoomID";
+
+                using (SqlCommand cmd = new SqlCommand(updateQuery, connection))
+                {
+                    cmd.Parameters.AddWithValue("@RoomID", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Room marked as occupied.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            finally
+            {
+                db.closeConnection(connection);
+            }
+        }
+        public void changeRoomStatusToFree(int id)
+        {
+            try
+            {
+                db.openConnection(connection);
+                string updateQuery = "UPDATE Rooms SET IsOccupied = 0 WHERE RoomID = @RoomID";
+
+                using (SqlCommand cmd = new SqlCommand(updateQuery, connection))
+                {
+                    cmd.Parameters.AddWithValue("@RoomID", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+
+                MessageBox.Show("Room marked as unoccupied.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+            
+        }
+        public void checkOutRooms(int id,int rid,DateTime checkouttime ,int total)
+        {
+            try
+            { 
+               
+
+                string updateQuery = "UPDATE booked  SET orderstatus = 1, Endtime = @Endtime ,orderSum = @orderSum WHERE BID = @BID";
+                changeRoomStatusToFree(rid);
+                using (SqlCommand cmd = new SqlCommand(updateQuery, connection))
+                {
+                    cmd.Parameters.AddWithValue("@BID", id);
+                    cmd.Parameters.AddWithValue("@Endtime", checkouttime);
+                    cmd.Parameters.AddWithValue("@orderSum", total);
+                    cmd.ExecuteNonQuery();
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
+           
+        }
+
+        public List<Bookeds> RenderOrders()
+        {
+            List<Bookeds> bookingsList = new List<Bookeds>();
+
             if (connection != null)
             {
                 try
                 {
-                    string query = "SELECT dbo.Customer.CustomerName, dbo.Customer.ResidentID, dbo.Customer.PhoneNumber," +
-                        " dbo.Rooms.RoomType, dbo.booked.Createtime, dbo.booked.Endtime, dbo.booked.orderstatus " +
-                        "FROM dbo.Customer " +
-                        "INNER JOIN dbo.booked ON dbo.Customer.customerID = dbo.booked.CustomerID " +
-                        "INNER JOIN dbo.Rooms ON dbo.booked.RoomID = dbo.Rooms.RoomID";
+                    string query = "SELECT b.BID, " +
+                                   "c.CustomerID, " +
+                                   "c.CustomerName, " +
+                                   "c.ResidentID, " +
+                                   "c.PhoneNumber, " +
+                                   "b.RoomID, " +
+                                   "r.RoomType, " +
+                                   "b.Createtime, " +
+                                   "b.Endtime, " +
+                                   "b.orderstatus " +
+                                   "FROM dbo.Customer c " +
+                                   "INNER JOIN dbo.booked b ON c.CustomerID = b.CustomerID " +
+                                   "INNER JOIN dbo.Rooms r ON b.RoomID = r.RoomID " +
+                                   "WHERE b.orderstatus = 0;";
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                     SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
@@ -77,8 +162,24 @@ namespace motelManageMent.Controller
                     DataSet ds = new DataSet();
                     adapter.Fill(ds, "booked");
 
-           
-                    grid.DataSource = ds.Tables["booked"];
+                    foreach (DataRow row in ds.Tables["booked"].Rows)
+                    {
+                        Bookeds booking = new Bookeds
+                        {
+                            BID = row["BID"] == DBNull.Value ? 0 : Convert.ToInt32(row["BID"]),
+                            CustomerID = row["CustomerID"] == DBNull.Value ? 0 : Convert.ToInt32(row["CustomerID"]),
+                            CustomerName = row["CustomerName"] == DBNull.Value ? string.Empty : row["CustomerName"].ToString(),
+                            ResidentID = row["ResidentID"] == DBNull.Value ? string.Empty : row["ResidentID"].ToString(),
+                            PhoneNumber = row["PhoneNumber"] == DBNull.Value ? string.Empty : row["PhoneNumber"].ToString(),
+                            RoomID = row["RoomID"] == DBNull.Value ? 0 : Convert.ToInt32(row["RoomID"]),
+                            RoomType = row["RoomType"] == DBNull.Value ? string.Empty : row["RoomType"].ToString(),
+                            CreateTime = row["Createtime"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["Createtime"]),
+                            EndTime = row["Endtime"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["Endtime"]),
+                            OrderStatus = row["orderstatus"] == DBNull.Value ? 0 : Convert.ToInt32(row["orderstatus"])
+                        };
+
+                        bookingsList.Add(booking);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -89,10 +190,11 @@ namespace motelManageMent.Controller
             {
                 MessageBox.Show("Connection is null.");
             }
+
+            return bookingsList;
         }
 
-
-
+        
 
         public void deleteOrder(int id)
         {
