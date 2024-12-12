@@ -142,19 +142,21 @@ namespace motelManageMent.Controller
                 try
                 {
                     string query = "SELECT b.BID, " +
-                                   "c.CustomerID, " +
-                                   "c.CustomerName, " +
-                                   "c.ResidentID, " +
-                                   "c.PhoneNumber, " +
-                                   "b.RoomID, " +
-                                   "r.RoomType, " +
-                                   "b.Createtime, " +
-                                   "b.Endtime, " +
-                                   "b.orderstatus " +
-                                   "FROM dbo.Customer c " +
-                                   "INNER JOIN dbo.booked b ON c.CustomerID = b.CustomerID " +
-                                   "INNER JOIN dbo.Rooms r ON b.RoomID = r.RoomID " +
-                                   "WHERE b.orderstatus = 0;";
+                "c.CustomerID, " +
+                "c.CustomerName, " +
+                "c.ResidentID, " +
+                "c.PhoneNumber, " +
+                "b.RoomID, " +
+                "r.RoomType, " +
+                "b.Createtime, " +
+                "b.Endtime, " +
+                "b.orderstatus, " +
+                "b.orderSum " + 
+                "FROM dbo.Customer c " +
+                "INNER JOIN dbo.booked b ON c.CustomerID = b.CustomerID " +
+                "INNER JOIN dbo.Rooms r ON b.RoomID = r.RoomID " 
+               ;
+
 
                     SqlDataAdapter adapter = new SqlDataAdapter(query, connection);
                     SqlCommandBuilder builder = new SqlCommandBuilder(adapter);
@@ -175,7 +177,8 @@ namespace motelManageMent.Controller
                             RoomType = row["RoomType"] == DBNull.Value ? string.Empty : row["RoomType"].ToString(),
                             CreateTime = row["Createtime"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["Createtime"]),
                             EndTime = row["Endtime"] == DBNull.Value ? DateTime.MinValue : Convert.ToDateTime(row["Endtime"]),
-                            OrderStatus = row["orderstatus"] == DBNull.Value ? 0 : Convert.ToInt32(row["orderstatus"])
+                            OrderStatus = row["orderstatus"] == DBNull.Value ? 0 : Convert.ToInt32(row["orderstatus"]),
+                            OrderSum = row["orderSum"] == DBNull.Value ? 0 : Convert.ToInt32(row["orderSum"])
                         };
 
                         bookingsList.Add(booking);
@@ -195,7 +198,6 @@ namespace motelManageMent.Controller
         }
 
         
-
         public void deleteOrder(int id)
         {
             if (connection != null)

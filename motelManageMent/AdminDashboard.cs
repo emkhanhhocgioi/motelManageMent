@@ -9,6 +9,7 @@ using System.Data.Common;
 using System.Drawing;
 using System.Drawing.Text;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -29,8 +30,15 @@ namespace motelManageMent
         private static int checkouBID;
         private static int checkoutRoomID;
         private static int checkoutCID;
-
+        private static int yearpointer;
+        private static int monthpointer;
         private static DateTime cDate;
+
+        //search order checker
+        private static bool searchname = false;
+        private static bool datecheck = false;
+        private static bool datecheck2 = false;
+        private static bool isAll = false;
 
 
         //list<>
@@ -47,9 +55,10 @@ namespace motelManageMent
             username = adm.Name;
             id = adm.Id;
             phone = adm.Phone;
+
             this.tabControl1.DrawMode = TabDrawMode.OwnerDrawFixed;
             this.tabControl1.ItemSize = new Size(400, 30);
-            this.tabControl1.SizeMode = TabSizeMode.Fixed;
+
             this.tabControl1.Location = new Point(0, 3);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -65,6 +74,7 @@ namespace motelManageMent
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Trang 1";
             this.tabPage1.UseVisualStyleBackColor = true;
+            //button images
 
             //serchres 
             listView1.View = View.List;
@@ -103,6 +113,20 @@ namespace motelManageMent
             HideTabHeader(tabControl1);
 
             chart3.Series.Clear();
+
+            int currentYear = DateTime.Now.Year;
+
+            for (int i = 2021; i <= currentYear; i++)
+            {
+                comboBox4.Items.Add(i);
+
+            }
+            comboBox4.SelectedIndex = comboBox4.Items.Count - 1;
+            for (int i = 1; i <= 12; i++)
+            {
+                comboBox3.Items.Add(i);
+            }
+
 
 
         }
@@ -144,7 +168,6 @@ namespace motelManageMent
                                       Brushes.White, rect.X + 3, rect.Y + 6);
             }
 
-            // Draw tab borders
             e.Graphics.DrawRectangle(Pens.Black, rect);
         }
         private void panel2_Paint(object sender, PaintEventArgs e)
@@ -156,6 +179,7 @@ namespace motelManageMent
             try
             {
                 RoomController rcl = new RoomController();
+                CalculationHelper calc = new CalculationHelper();
                 rooms = rcl.RenderRooms();
 
                 RoomGridView.DataSource = rooms;
@@ -164,6 +188,9 @@ namespace motelManageMent
                 RoomGridView.Columns["RoomType"].HeaderText = "Room Type";
                 RoomGridView.Columns["RoomNumber"].HeaderText = "Price";
                 RoomGridView.Columns["IsOccupied"].HeaderText = "Room status";
+
+                RoomSum.Text = "Tổng số phòng : " + calc.sumRoom(rooms).ToString();
+
             }
             catch (Exception ex)
             {
@@ -175,9 +202,9 @@ namespace motelManageMent
             {
                 CustomerController customercl = new CustomerController();
                 customers = customercl.GetCustomerList();
-
+                CalculationHelper calc = new CalculationHelper();
                 CustomerGrid.DataSource = customers;
-
+                CustomerSum.Text = "Tổng số Khách Hàng : " + calc.sumCustomer(customers).ToString();
 
             }
             catch (Exception ex)
@@ -189,24 +216,52 @@ namespace motelManageMent
         {
             try
             {
-                BookedController booked = new BookedController();
-                bookedlist = booked.RenderOrders();
-                OrderGrid.DataSource = bookedlist;
+                if (isAll == true)
+                {
+                    BookedController booked = new BookedController();
+                    bookedlist = booked.RenderOrders();
+
+                    OrderGrid.DataSource = bookedlist;
+                    CalculationHelper calc = new CalculationHelper();
+
+                    orderSum.Text = "Tổng số đơn hàng : " + calc.sumOrder(bookedlist).ToString();
+                }
+                else
+                {
+                    BookedController booked = new BookedController();
+                    bookedlist = booked.RenderOrders();
+                    List<Bookeds> filteredList = new List<Bookeds>();
+                    foreach (Bookeds b in bookedlist)
+                    {
+                        if (b.OrderStatus == 0)
+                        {
+                            filteredList.Add(b);
+                        }
+
+                    }
+                    OrderGrid.DataSource = filteredList;
+                    CalculationHelper calc = new CalculationHelper();
+
+                    orderSum.Text = "Tổng số đơn hàng : " + calc.sumOrder(bookedlist).ToString();
+                }
+
 
             }
             catch (Exception ex)
             {
             }
         }
+
         private void AdminDashboard_Load(object sender, EventArgs e)
         {
             label3.Text = username;
-            label2.Text = id;
+
 
             renderCustomerGridView();
             RenderRoomGridView();
             renderOrderGridView();
             ChartRender();
+            renderSumvalue();
             listView1.ItemActivate += ListView1_ItemActivate;
             listView2.ItemActivate += ListView2_ItemActivate;
         }
@@ -537,6 +592,10 @@ namespace motelManageMent
                 }
 
             }
+            else if (searchCustomer.Text.Equals(""))
+            {
+                listView1.Visible = false;
+            }
 
         }
         private void ListView1_ItemActivate(object sender, EventArgs e)
@@ -597,6 +656,10 @@ namespace motelManageMent
 
                 }
 
+            }
+            else if (RoomSearchBox.Text.Equals(""))
+            {
+                listView2.Visible = false;
             }
         }
 
@@ -675,45 +738,52 @@ namespace motelManageMent
         }
         public void ChartRender()
         {
-       
             chart3.Series.Clear();
 
-    
-            Dictionary<string, int> monthData = new Dictionary<string, int>()
-    {
-        { "January", 5000 }, { "February", 7000 }, { "March", 6000 },
-        { "April", 8000 }, { "May", 9000 }, { "June", 11000 },
-        { "July", 10500 }, { "August", 12000 }, { "September", 13000 },
-        { "October", 15000 }, { "November", 16000 }, { "December", 17000 }
-    };
+            CalculationHelper calculationHelper = new CalculationHelper();
+            Dictionary<string, int> monthData = calculationHelper.doanhthutochart(bookedlist);
 
-      
             foreach (var month in monthData)
             {
                 Series series = new Series(month.Key);
                 series.ChartType = SeriesChartType.Column;
-                series.Points.AddXY(month.Key, month.Value); 
-                series["PointWidth"] = "0.5"; 
-                chart3.Series.Add(series); 
+                series.Points.AddXY(month.Key, month.Value);
+                series["PointWidth"] = "0.5";
+
+
+                foreach (DataPoint dp in series.Points)
+                {
+                    dp.IsValueShownAsLabel = true;
+                    dp.Label = dp.YValues[0].ToString();
+                }
+
+                chart3.Series.Add(series);
             }
 
-            
             ChartArea chartArea = chart3.ChartAreas[0];
-            chartArea.AxisX.Interval = 1; 
+            chartArea.AxisX.Interval = 1;
             chartArea.AxisX.IsMarginVisible = false;
-            chartArea.AxisX.Title = "Months"; 
-            chartArea.AxisY.Title = "Money ($)"; 
+            chartArea.AxisX.Title = "Tháng";
+            chartArea.AxisY.Title = "Doanh thu (VND)";
 
-  
             chartArea.AxisX.MajorGrid.LineWidth = 0;
-            chartArea.AxisX.LabelStyle.Angle = -45; 
+            chartArea.AxisX.LabelStyle.Angle = -45;
+
+
+            chartArea.AxisY.LabelStyle.Format = "#,##0";
+            chartArea.AxisX.LabelStyle.Font = new Font("Arial", 8);
+            chartArea.AxisY.LabelStyle.Font = new Font("Arial", 8);
         }
+
+
+
+
 
         public void CharRender2()
         {
 
         }
-        
+
 
 
 
@@ -727,7 +797,195 @@ namespace motelManageMent
 
         private void chart3_Click(object sender, EventArgs e)
         {
-            
+
+        }
+        public void renderSumvalue()
+        {
+            try
+            {
+                CalculationHelper calc = new CalculationHelper();
+                sumDoanhthu.Text = "Tổng Doanh Thu: " + calc.doanhthutest(bookedlist).ToString();
+
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Lỗi xảy ra: " + ex.Message);
+
+            }
+        }
+
+
+
+        private void comboBox3_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            monthpointer = Convert.ToInt32(comboBox3.SelectedItem);
+
+
+        }
+
+        private void comboBox4_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            yearpointer = Convert.ToInt32(comboBox4.SelectedItem);
+
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                CalculationHelper calc = new CalculationHelper();
+
+                if (monthpointer > 0 || yearpointer > 0)
+                {
+
+                    sumDoanhthu.Text = "Tổng Doanh Thu: " + calc.SumDoanhThu(bookedlist, monthpointer, yearpointer).ToString();
+                    sumOrdermonth.Visible = true;
+                    sumOrdermonth.Text = "Tổng Đơn theo tháng:" + calc.sumOrderMonth(bookedlist, monthpointer, yearpointer).ToString();
+
+                }
+                else
+                {
+                    MessageBox.Show("Vui lòng chọn tháng và năm hợp lệ!");
+                }
+            }
+            catch (Exception ex)
+            {
+
+                MessageBox.Show("Đã xảy ra lỗi: " + ex.Message);
+            }
+        }
+
+        private void button11_Click(object sender, EventArgs e)
+        {
+            renderSumvalue();
+            monthpointer = 0;
+            yearpointer = 0;
+            comboBox3.SelectedIndex = 0 - 1;
+            comboBox4.SelectedIndex = comboBox4.Items.Count - 1;
+        }
+
+        private void button12_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                DateTime a = ordertimesearcha.Value;
+                DateTime b = ordertimesearchb.Value;
+                SearchHelper search = new SearchHelper();
+                search.sortTableUsing(bookedlist, sortName.Text, OrderGrid, searchname, datecheck, datecheck2, a, b);
+
+
+
+
+
+            }
+            catch (Exception ex)
+            {
+            }
+        }
+
+        private void panel8_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void ordertimesearcha_ValueChanged(object sender, EventArgs e)
+        {
+            datecheck = true;
+        }
+
+        private void ordertimesearchb_ValueChanged(object sender, EventArgs e)
+        {
+            datecheck2 = true;
+        }
+
+        private void sortName_TextChanged(object sender, EventArgs e)
+        {
+            searchname = true;
+        }
+
+        private void button13_Click(object sender, EventArgs e)
+        {
+            datecheck = false;
+            datecheck2 = false;
+            searchname = false;
+            sortName.Text = "(tên hoặc sdt)";
+            ordertimesearcha.Value = DateTime.Now;
+            ordertimesearchb.Value = DateTime.Now;
+            renderOrderGridView();
+            checkBox1.Checked = false;
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            if (checkBox1.Checked == true)
+            {
+                isAll = true;
+            }
+            else
+            {
+                isAll = false;
+            }
+
+            // Cập nhật giao diện
+            renderOrderGridView();
+        }
+
+        private void button14_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Customer> cs = new List<Customer>();
+                foreach (Customer c in customers)
+                {
+                    if (c.CustomerName.Contains(customermnsearch.Text) || c.PhoneNumber.ToString().Contains(customermnsearch.Text) || c.ResidentID.ToString().Contains(customermnsearch.Text))
+                    {
+                        cs.Add(c);
+                    }
+                }
+                CustomerGrid.DataSource = cs;
+            }
+            catch (Exception ex)
+            {
+
+            }
+        }
+
+        private void button5_Click(object sender, EventArgs e)
+        {
+            customermnsearch.Text = "";
+            renderCustomerGridView();
+        }
+
+        private void label7_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void panel2_Paint_1(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void button16_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                List<Room> cs = new List<Room>();
+                foreach (Room c in rooms)
+                {
+                    if (c.Id.ToString().Contains(textBox1.Text))
+                    {
+                        cs.Add(c);
+                    }
+                }
+                RoomGridView.DataSource = cs;
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 

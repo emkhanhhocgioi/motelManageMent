@@ -42,7 +42,7 @@ namespace motelManageMent.Service
             foreach (var room in list)
             {
 
-                if (room.Id == int.Parse(pointer) && room.IsOccupied != 1 )
+                if (room.Id.ToString().Contains(pointer) && room.IsOccupied != 1 )
                 {
                     results.Add("Phòng:"+room.Id+" | "+room.RoomType);
                 }
@@ -50,6 +50,56 @@ namespace motelManageMent.Service
 
 
             return results.ToArray();
+        }
+
+        public void sortTableUsing(List<Bookeds> list, string pointer,DataGridView dtg, bool searchchange, bool datecheck ,bool datecheck2,DateTime ta,DateTime tb)
+        {
+            if (datecheck == true && datecheck2 == true && searchchange ==true)
+            {
+               
+                pointer = pointer.Trim();
+                List<Bookeds> li = new List<Bookeds>();
+                foreach (Bookeds booked in list)
+                {
+                    if (booked.CustomerName.Contains(pointer) || booked.PhoneNumber.Contains(pointer) && booked.CreateTime >= ta && booked.CreateTime <=tb )
+                    {
+                        li.Add(booked);
+
+                    }
+                }
+                dtg.DataSource = li;
+
+            }
+            else if (searchchange == true && datecheck == false && datecheck2 == false)
+            {
+                pointer = pointer.Trim();
+                List<Bookeds> li = new List<Bookeds>();
+                foreach (Bookeds booked in list)
+                {
+                    if (booked.CustomerName.Contains(pointer) || booked.PhoneNumber.Contains(pointer))
+                    {
+                        li.Add(booked);
+
+                    }
+                }
+                dtg.DataSource = li;
+            }else if(searchchange == false && datecheck == true && datecheck2 == true)
+            {
+                pointer = pointer.Trim();
+                List<Bookeds> li = new List<Bookeds>();
+                foreach (Bookeds booked in list)
+                {
+                    if (booked.CreateTime >= ta && booked.CreateTime <= tb)
+                    {
+                        li.Add(booked);
+
+                    }
+                }
+                dtg.DataSource = li;
+            }
+            
+          
+
         }
 
     }

@@ -14,12 +14,12 @@ namespace motelManageMent.Model
         public string RoomType { get; set; }      
         public DateTime CreateTime { get; set; } 
         public DateTime EndTime { get; set; }     
-        public int OrderStatus { get; set; }     
+        public int OrderStatus { get; set; }
 
-
+        public int OrderSum { get; set; }
         public Bookeds(int bid, int customerID, string customerName, string residentID,
                              string phoneNumber, int roomID, string roomType,
-                             DateTime createTime, DateTime endTime, int orderStatus)
+                             DateTime createTime, DateTime endTime, int orderStatus, int orderSum)
         {
             BID = bid;
             CustomerID = customerID;
@@ -31,6 +31,7 @@ namespace motelManageMent.Model
             CreateTime = createTime;
             EndTime = endTime;
             OrderStatus = orderStatus;
+            OrderSum = orderSum;
         }
 
 

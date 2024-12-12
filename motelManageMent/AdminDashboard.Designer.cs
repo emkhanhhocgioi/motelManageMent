@@ -30,12 +30,10 @@ namespace motelManageMent
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminDashboard));
             panel1 = new Panel();
             panel3 = new Panel();
             tabControl1 = new TabControl();
@@ -77,46 +75,61 @@ namespace motelManageMent
             tabPage3 = new TabPage();
             panel6 = new Panel();
             panel7 = new Panel();
+            button5 = new Button();
+            customermnsearch = new TextBox();
+            button14 = new Button();
             label13 = new Label();
             CustomerGrid = new DataGridView();
             tabPage4 = new TabPage();
             panel8 = new Panel();
+            listView1 = new ListView();
+            button13 = new Button();
+            checkBox1 = new CheckBox();
+            ordertimesearcha = new DateTimePicker();
+            label26 = new Label();
+            sortName = new TextBox();
+            button12 = new Button();
             button7 = new Button();
             listView2 = new ListView();
             RoomSearchBox = new TextBox();
             label18 = new Label();
             label17 = new Label();
-            listView1 = new ListView();
             searchCustomer = new TextBox();
             addorder = new Button();
             label16 = new Label();
             OrderGrid = new DataGridView();
+            label27 = new Label();
+            label28 = new Label();
+            ordertimesearchb = new DateTimePicker();
             tabPage5 = new TabPage();
             panel9 = new Panel();
+            label21 = new Label();
             chart3 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             panel10 = new Panel();
+            sumOrdermonth = new Label();
+            button11 = new Button();
+            button10 = new Button();
+            comboBox4 = new ComboBox();
             comboBox3 = new ComboBox();
+            label24 = new Label();
             label23 = new Label();
             label22 = new Label();
-            label21 = new Label();
+            sumDoanhthu = new Label();
             orderSum = new Label();
             CustomerSum = new Label();
             RoomSum = new Label();
             label20 = new Label();
             panel2 = new Panel();
-            button5 = new Button();
+            button15 = new Button();
             button4 = new Button();
             button3 = new Button();
             button2 = new Button();
             button1 = new Button();
             label3 = new Label();
-            label2 = new Label();
-            label1 = new Label();
-            chart4 = new System.Windows.Forms.DataVisualization.Charting.Chart();
-            comboBox4 = new ComboBox();
-            label24 = new Label();
             comboBox5 = new ComboBox();
-            label25 = new Label();
+            label1 = new Label();
+            textBox1 = new TextBox();
+            button16 = new Button();
             panel1.SuspendLayout();
             panel3.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -139,7 +152,6 @@ namespace motelManageMent
             ((System.ComponentModel.ISupportInitialize)chart3).BeginInit();
             panel10.SuspendLayout();
             panel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)chart4).BeginInit();
             SuspendLayout();
             // 
             // panel1
@@ -147,9 +159,9 @@ namespace motelManageMent
             panel1.BackColor = SystemColors.GradientActiveCaption;
             panel1.Controls.Add(panel3);
             panel1.Controls.Add(panel2);
-            panel1.Location = new Point(-2, -1);
+            panel1.Location = new Point(-2, -4);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1029, 723);
+            panel1.Size = new Size(1026, 726);
             panel1.TabIndex = 0;
             // 
             // panel3
@@ -188,6 +200,10 @@ namespace motelManageMent
             // panel4
             // 
             panel4.BackColor = Color.LightSlateGray;
+            panel4.Controls.Add(button16);
+            panel4.Controls.Add(textBox1);
+            panel4.Controls.Add(label1);
+            panel4.Controls.Add(comboBox5);
             panel4.Controls.Add(label19);
             panel4.Controls.Add(label15);
             panel4.Controls.Add(comboBox2);
@@ -243,31 +259,40 @@ namespace motelManageMent
             // 
             // UpdateRoomBtn
             // 
+            UpdateRoomBtn.Image = (Image)resources.GetObject("UpdateRoomBtn.Image");
             UpdateRoomBtn.Location = new Point(402, 179);
             UpdateRoomBtn.Name = "UpdateRoomBtn";
+            UpdateRoomBtn.RightToLeft = RightToLeft.No;
             UpdateRoomBtn.Size = new Size(89, 38);
             UpdateRoomBtn.TabIndex = 8;
-            UpdateRoomBtn.Text = "UPDATE ROOM";
+            UpdateRoomBtn.Text = "đổi thông tin phòng";
+            UpdateRoomBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             UpdateRoomBtn.UseVisualStyleBackColor = true;
             UpdateRoomBtn.Click += UpdateRoomBtn_Click;
             // 
             // DeleteRoomBtn
             // 
+            DeleteRoomBtn.Image = (Image)resources.GetObject("DeleteRoomBtn.Image");
             DeleteRoomBtn.Location = new Point(307, 179);
             DeleteRoomBtn.Name = "DeleteRoomBtn";
             DeleteRoomBtn.Size = new Size(89, 38);
             DeleteRoomBtn.TabIndex = 7;
-            DeleteRoomBtn.Text = "DELETE ROOM";
+            DeleteRoomBtn.Text = "xóa phòng";
+            DeleteRoomBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             DeleteRoomBtn.UseVisualStyleBackColor = true;
             DeleteRoomBtn.Click += DeleteRoomBtn_Click;
             // 
             // InsertRoomBtn
             // 
+            InsertRoomBtn.FlatAppearance.BorderColor = Color.Black;
+            InsertRoomBtn.FlatAppearance.BorderSize = 3;
+            InsertRoomBtn.Image = (Image)resources.GetObject("InsertRoomBtn.Image");
             InsertRoomBtn.Location = new Point(212, 179);
             InsertRoomBtn.Name = "InsertRoomBtn";
             InsertRoomBtn.Size = new Size(89, 38);
             InsertRoomBtn.TabIndex = 6;
-            InsertRoomBtn.Text = "INSERT ROOM";
+            InsertRoomBtn.Text = "thêm phòng";
+            InsertRoomBtn.TextImageRelation = TextImageRelation.ImageBeforeText;
             InsertRoomBtn.UseVisualStyleBackColor = true;
             InsertRoomBtn.Click += InsertRoomBtn_Click;
             // 
@@ -375,7 +400,7 @@ namespace motelManageMent
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(6, 303);
+            label8.Location = new Point(75, 303);
             label8.Name = "label8";
             label8.Size = new Size(153, 15);
             label8.TabIndex = 27;
@@ -392,22 +417,30 @@ namespace motelManageMent
             // 
             // button9
             // 
-            button9.Location = new Point(539, 308);
+            button9.BackgroundImageLayout = ImageLayout.Center;
+            button9.Image = (Image)resources.GetObject("button9.Image");
+            button9.Location = new Point(580, 308);
             button9.Name = "button9";
-            button9.Size = new Size(113, 54);
+            button9.Size = new Size(114, 54);
             button9.TabIndex = 24;
-            button9.Text = "D.S Khách Hàng";
+            button9.Text = "D.s Khách Hàng";
+            button9.TextImageRelation = TextImageRelation.ImageBeforeText;
             button9.UseVisualStyleBackColor = true;
             button9.Click += button9_Click;
             // 
             // button8
             // 
-            button8.Location = new Point(424, 308);
+            button8.BackColor = Color.Azure;
+            button8.BackgroundImageLayout = ImageLayout.Zoom;
+            button8.Image = (Image)resources.GetObject("button8.Image");
+            button8.Location = new Point(438, 308);
             button8.Name = "button8";
-            button8.Size = new Size(109, 54);
+            button8.Size = new Size(121, 54);
             button8.TabIndex = 23;
             button8.Text = "Thêm";
-            button8.UseVisualStyleBackColor = true;
+            button8.TextAlign = ContentAlignment.MiddleRight;
+            button8.TextImageRelation = TextImageRelation.ImageBeforeText;
+            button8.UseVisualStyleBackColor = false;
             button8.Click += button8_Click;
             // 
             // label14
@@ -500,29 +533,30 @@ namespace motelManageMent
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(3, 23);
+            label7.Location = new Point(75, 35);
             label7.Name = "label7";
             label7.Size = new Size(163, 15);
             label7.TabIndex = 5;
             label7.Text = "Mặt trước căn cước công dân";
+            label7.Click += label7_Click;
             // 
             // button6
             // 
-            button6.Location = new Point(6, 534);
+            button6.Image = (Image)resources.GetObject("button6.Image");
+            button6.Location = new Point(122, 533);
             button6.Name = "button6";
-            button6.Size = new Size(75, 22);
+            button6.Size = new Size(75, 34);
             button6.TabIndex = 4;
-            button6.Text = "tải ảnh lên";
             button6.UseVisualStyleBackColor = true;
             button6.Click += button6_Click;
             // 
             // uploadcustomerBtn
             // 
-            uploadcustomerBtn.Location = new Point(6, 266);
+            uploadcustomerBtn.Image = (Image)resources.GetObject("uploadcustomerBtn.Image");
+            uploadcustomerBtn.Location = new Point(122, 267);
             uploadcustomerBtn.Name = "uploadcustomerBtn";
-            uploadcustomerBtn.Size = new Size(75, 22);
+            uploadcustomerBtn.Size = new Size(75, 33);
             uploadcustomerBtn.TabIndex = 3;
-            uploadcustomerBtn.Text = "tải ảnh lên";
             uploadcustomerBtn.UseVisualStyleBackColor = true;
             uploadcustomerBtn.Click += uploadcustomerBtn_Click;
             // 
@@ -548,12 +582,43 @@ namespace motelManageMent
             // panel7
             // 
             panel7.BackColor = Color.SlateGray;
+            panel7.Controls.Add(button5);
+            panel7.Controls.Add(customermnsearch);
+            panel7.Controls.Add(button14);
             panel7.Controls.Add(label13);
             panel7.Controls.Add(CustomerGrid);
             panel7.Location = new Point(1, 3);
             panel7.Name = "panel7";
             panel7.Size = new Size(815, 687);
             panel7.TabIndex = 0;
+            // 
+            // button5
+            // 
+            button5.Image = (Image)resources.GetObject("button5.Image");
+            button5.Location = new Point(569, 68);
+            button5.Name = "button5";
+            button5.Size = new Size(33, 33);
+            button5.TabIndex = 5;
+            button5.UseVisualStyleBackColor = true;
+            button5.Click += button5_Click;
+            // 
+            // customermnsearch
+            // 
+            customermnsearch.Location = new Point(240, 68);
+            customermnsearch.Multiline = true;
+            customermnsearch.Name = "customermnsearch";
+            customermnsearch.Size = new Size(285, 33);
+            customermnsearch.TabIndex = 4;
+            // 
+            // button14
+            // 
+            button14.Image = (Image)resources.GetObject("button14.Image");
+            button14.Location = new Point(531, 68);
+            button14.Name = "button14";
+            button14.Size = new Size(32, 33);
+            button14.TabIndex = 3;
+            button14.UseVisualStyleBackColor = true;
+            button14.Click += button14_Click;
             // 
             // label13
             // 
@@ -569,9 +634,9 @@ namespace motelManageMent
             // CustomerGrid
             // 
             CustomerGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            CustomerGrid.Location = new Point(3, 74);
+            CustomerGrid.Location = new Point(3, 106);
             CustomerGrid.Name = "CustomerGrid";
-            CustomerGrid.Size = new Size(809, 602);
+            CustomerGrid.Size = new Size(809, 570);
             CustomerGrid.TabIndex = 0;
             CustomerGrid.CellContentClick += CustomerGrid_CellClick;
             // 
@@ -589,43 +654,122 @@ namespace motelManageMent
             // panel8
             // 
             panel8.BackColor = Color.SlateGray;
+            panel8.Controls.Add(listView1);
+            panel8.Controls.Add(button13);
+            panel8.Controls.Add(checkBox1);
+            panel8.Controls.Add(ordertimesearcha);
+            panel8.Controls.Add(label26);
+            panel8.Controls.Add(sortName);
+            panel8.Controls.Add(button12);
             panel8.Controls.Add(button7);
             panel8.Controls.Add(listView2);
             panel8.Controls.Add(RoomSearchBox);
             panel8.Controls.Add(label18);
             panel8.Controls.Add(label17);
-            panel8.Controls.Add(listView1);
             panel8.Controls.Add(searchCustomer);
             panel8.Controls.Add(addorder);
             panel8.Controls.Add(label16);
             panel8.Controls.Add(OrderGrid);
+            panel8.Controls.Add(label27);
+            panel8.Controls.Add(label28);
+            panel8.Controls.Add(ordertimesearchb);
             panel8.Location = new Point(0, 0);
             panel8.Name = "panel8";
-            panel8.Size = new Size(820, 690);
+            panel8.Size = new Size(820, 699);
             panel8.TabIndex = 0;
+            panel8.Paint += panel8_Paint;
+            // 
+            // listView1
+            // 
+            listView1.Location = new Point(96, 90);
+            listView1.Name = "listView1";
+            listView1.Size = new Size(202, 209);
+            listView1.TabIndex = 5;
+            listView1.UseCompatibleStateImageBehavior = false;
+            listView1.Visible = false;
+            // 
+            // button13
+            // 
+            button13.Image = Properties.Resources.refresh_arrow;
+            button13.Location = new Point(751, 231);
+            button13.Name = "button13";
+            button13.Size = new Size(36, 34);
+            button13.TabIndex = 24;
+            button13.UseVisualStyleBackColor = true;
+            button13.Click += button13_Click;
+            // 
+            // checkBox1
+            // 
+            checkBox1.AutoSize = true;
+            checkBox1.Location = new Point(628, 240);
+            checkBox1.Name = "checkBox1";
+            checkBox1.Size = new Size(126, 19);
+            checkBox1.TabIndex = 20;
+            checkBox1.Text = "hiện đã thanh toán";
+            checkBox1.UseVisualStyleBackColor = true;
+            checkBox1.CheckedChanged += checkBox1_CheckedChanged;
+            // 
+            // ordertimesearcha
+            // 
+            ordertimesearcha.Location = new Point(260, 239);
+            ordertimesearcha.Name = "ordertimesearcha";
+            ordertimesearcha.Size = new Size(143, 23);
+            ordertimesearcha.TabIndex = 19;
+            ordertimesearcha.ValueChanged += ordertimesearcha_ValueChanged;
+            // 
+            // label26
+            // 
+            label26.AutoSize = true;
+            label26.Location = new Point(219, 241);
+            label26.Name = "label26";
+            label26.Size = new Size(35, 15);
+            label26.TabIndex = 18;
+            label26.Text = "Ngày";
+            // 
+            // sortName
+            // 
+            sortName.Location = new Point(57, 239);
+            sortName.Multiline = true;
+            sortName.Name = "sortName";
+            sortName.Size = new Size(156, 26);
+            sortName.TabIndex = 15;
+            sortName.Text = "(tên hoặc sdt)";
+            sortName.TextChanged += sortName_TextChanged;
+            // 
+            // button12
+            // 
+            button12.Image = (Image)resources.GetObject("button12.Image");
+            button12.Location = new Point(11, 231);
+            button12.Name = "button12";
+            button12.Size = new Size(40, 34);
+            button12.TabIndex = 14;
+            button12.UseVisualStyleBackColor = true;
+            button12.Click += button12_Click;
             // 
             // button7
             // 
-            button7.Location = new Point(6, 114);
+            button7.Image = (Image)resources.GetObject("button7.Image");
+            button7.Location = new Point(694, 69);
             button7.Name = "button7";
-            button7.Size = new Size(66, 47);
+            button7.Size = new Size(80, 49);
             button7.TabIndex = 13;
             button7.Text = "Check out";
+            button7.TextImageRelation = TextImageRelation.ImageBeforeText;
             button7.UseVisualStyleBackColor = true;
             button7.Click += button7_Click;
             // 
             // listView2
             // 
-            listView2.Location = new Point(476, 85);
+            listView2.Location = new Point(403, 90);
             listView2.Name = "listView2";
-            listView2.Size = new Size(202, 146);
+            listView2.Size = new Size(202, 209);
             listView2.TabIndex = 11;
             listView2.UseCompatibleStateImageBehavior = false;
             listView2.Visible = false;
             // 
             // RoomSearchBox
             // 
-            RoomSearchBox.Location = new Point(476, 66);
+            RoomSearchBox.Location = new Point(403, 69);
             RoomSearchBox.Name = "RoomSearchBox";
             RoomSearchBox.Size = new Size(202, 23);
             RoomSearchBox.TabIndex = 10;
@@ -634,7 +778,7 @@ namespace motelManageMent
             // label18
             // 
             label18.AutoSize = true;
-            label18.Location = new Point(377, 66);
+            label18.Location = new Point(304, 69);
             label18.Name = "label18";
             label18.Size = new Size(74, 15);
             label18.TabIndex = 9;
@@ -643,24 +787,15 @@ namespace motelManageMent
             // label17
             // 
             label17.AutoSize = true;
-            label17.Location = new Point(78, 69);
+            label17.Location = new Point(5, 72);
             label17.Name = "label17";
             label17.Size = new Size(85, 15);
             label17.TabIndex = 7;
             label17.Text = "KHÁCH HÀNG";
             // 
-            // listView1
-            // 
-            listView1.Location = new Point(169, 85);
-            listView1.Name = "listView1";
-            listView1.Size = new Size(202, 146);
-            listView1.TabIndex = 5;
-            listView1.UseCompatibleStateImageBehavior = false;
-            listView1.Visible = false;
-            // 
             // searchCustomer
             // 
-            searchCustomer.Location = new Point(169, 66);
+            searchCustomer.Location = new Point(96, 69);
             searchCustomer.Name = "searchCustomer";
             searchCustomer.Size = new Size(202, 23);
             searchCustomer.TabIndex = 3;
@@ -668,11 +803,13 @@ namespace motelManageMent
             // 
             // addorder
             // 
-            addorder.Location = new Point(6, 61);
+            addorder.Image = (Image)resources.GetObject("addorder.Image");
+            addorder.Location = new Point(611, 69);
             addorder.Name = "addorder";
-            addorder.Size = new Size(66, 47);
+            addorder.Size = new Size(77, 49);
             addorder.TabIndex = 2;
             addorder.Text = "Đặt phòng";
+            addorder.TextImageRelation = TextImageRelation.ImageBeforeText;
             addorder.UseVisualStyleBackColor = true;
             addorder.Click += addorder_Click;
             // 
@@ -680,21 +817,49 @@ namespace motelManageMent
             // 
             label16.AutoSize = true;
             label16.FlatStyle = FlatStyle.Flat;
-            label16.Font = new Font("Segoe UI", 16F, FontStyle.Bold | FontStyle.Italic);
-            label16.Location = new Point(279, 11);
+            label16.Font = new Font("Segoe UI", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label16.Location = new Point(247, 5);
             label16.Name = "label16";
-            label16.Size = new Size(214, 30);
+            label16.Size = new Size(262, 37);
             label16.TabIndex = 1;
             label16.Text = "Quản Lý Đặt Phòng";
             // 
             // OrderGrid
             // 
             OrderGrid.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            OrderGrid.Location = new Point(55, 178);
+            OrderGrid.Location = new Point(6, 268);
             OrderGrid.Name = "OrderGrid";
-            OrderGrid.Size = new Size(706, 458);
+            OrderGrid.Size = new Size(799, 411);
             OrderGrid.TabIndex = 12;
             OrderGrid.CellClick += OrderGrid_CellClick;
+            // 
+            // label27
+            // 
+            label27.AutoSize = true;
+            label27.Font = new Font("Segoe UI Light", 20.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label27.Location = new Point(409, 228);
+            label27.Name = "label27";
+            label27.Size = new Size(28, 37);
+            label27.TabIndex = 21;
+            label27.Text = "-";
+            label27.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label28
+            // 
+            label28.AutoSize = true;
+            label28.Location = new Point(435, 239);
+            label28.Name = "label28";
+            label28.Size = new Size(35, 15);
+            label28.TabIndex = 23;
+            label28.Text = "Ngày";
+            // 
+            // ordertimesearchb
+            // 
+            ordertimesearchb.Location = new Point(476, 239);
+            ordertimesearchb.Name = "ordertimesearchb";
+            ordertimesearchb.Size = new Size(146, 23);
+            ordertimesearchb.TabIndex = 22;
+            ordertimesearchb.ValueChanged += ordertimesearchb_ValueChanged;
             // 
             // tabPage5
             // 
@@ -710,28 +875,40 @@ namespace motelManageMent
             // panel9
             // 
             panel9.BackColor = Color.SlateGray;
-            panel9.Controls.Add(chart4);
+            panel9.Controls.Add(label21);
             panel9.Controls.Add(chart3);
             panel9.Controls.Add(panel10);
             panel9.Controls.Add(label20);
             panel9.Location = new Point(0, 0);
             panel9.Name = "panel9";
-            panel9.Size = new Size(817, 693);
+            panel9.Size = new Size(816, 690);
             panel9.TabIndex = 0;
+            // 
+            // label21
+            // 
+            label21.AutoSize = true;
+            label21.BackColor = Color.Transparent;
+            label21.FlatStyle = FlatStyle.Flat;
+            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label21.Location = new Point(161, 68);
+            label21.Name = "label21";
+            label21.Size = new Size(166, 21);
+            label21.TabIndex = 13;
+            label21.Text = "Biểu Đồ Doanh Thu :";
             // 
             // chart3
             // 
-            chartArea4.Name = "ChartArea1";
-            chart3.ChartAreas.Add(chartArea4);
-            legend4.Name = "Legend1";
-            chart3.Legends.Add(legend4);
-            chart3.Location = new Point(13, 44);
+            chartArea1.Name = "ChartArea1";
+            chart3.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            chart3.Legends.Add(legend1);
+            chart3.Location = new Point(3, 92);
             chart3.Name = "chart3";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Series1";
-            chart3.Series.Add(series4);
-            chart3.Size = new Size(492, 337);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            chart3.Series.Add(series1);
+            chart3.Size = new Size(526, 595);
             chart3.TabIndex = 4;
             chart3.Text = "chart3";
             chart3.Click += chart3_Click;
@@ -739,38 +916,88 @@ namespace motelManageMent
             // panel10
             // 
             panel10.BackColor = Color.White;
-            panel10.Controls.Add(comboBox5);
-            panel10.Controls.Add(label25);
+            panel10.Controls.Add(sumOrdermonth);
+            panel10.Controls.Add(button11);
+            panel10.Controls.Add(button10);
             panel10.Controls.Add(comboBox4);
-            panel10.Controls.Add(label24);
             panel10.Controls.Add(comboBox3);
+            panel10.Controls.Add(label24);
             panel10.Controls.Add(label23);
             panel10.Controls.Add(label22);
-            panel10.Controls.Add(label21);
+            panel10.Controls.Add(sumDoanhthu);
             panel10.Controls.Add(orderSum);
             panel10.Controls.Add(CustomerSum);
             panel10.Controls.Add(RoomSum);
-            panel10.Location = new Point(511, 44);
+            panel10.Location = new Point(535, 92);
             panel10.Name = "panel10";
-            panel10.Size = new Size(303, 635);
+            panel10.Size = new Size(278, 594);
             panel10.TabIndex = 3;
+            // 
+            // sumOrdermonth
+            // 
+            sumOrdermonth.AutoSize = true;
+            sumOrdermonth.Location = new Point(25, 287);
+            sumOrdermonth.Name = "sumOrdermonth";
+            sumOrdermonth.Size = new Size(44, 15);
+            sumOrdermonth.TabIndex = 13;
+            sumOrdermonth.Text = "label25";
+            sumOrdermonth.Visible = false;
+            // 
+            // button11
+            // 
+            button11.Location = new Point(131, 125);
+            button11.Name = "button11";
+            button11.Size = new Size(61, 23);
+            button11.TabIndex = 12;
+            button11.Text = "Đặt Lại";
+            button11.UseVisualStyleBackColor = true;
+            button11.Click += button11_Click;
+            // 
+            // button10
+            // 
+            button10.Location = new Point(198, 125);
+            button10.Name = "button10";
+            button10.Size = new Size(58, 23);
+            button10.TabIndex = 11;
+            button10.Text = "Rút Gọn";
+            button10.UseVisualStyleBackColor = true;
+            button10.Click += button10_Click;
+            // 
+            // comboBox4
+            // 
+            comboBox4.FormattingEnabled = true;
+            comboBox4.Location = new Point(131, 86);
+            comboBox4.Name = "comboBox4";
+            comboBox4.Size = new Size(125, 23);
+            comboBox4.TabIndex = 10;
+            comboBox4.SelectedIndexChanged += comboBox4_SelectedIndexChanged;
             // 
             // comboBox3
             // 
             comboBox3.FormattingEnabled = true;
-            comboBox3.Location = new Point(147, 48);
+            comboBox3.Location = new Point(133, 45);
             comboBox3.Name = "comboBox3";
-            comboBox3.Size = new Size(148, 23);
-            comboBox3.TabIndex = 7;
+            comboBox3.Size = new Size(123, 23);
+            comboBox3.TabIndex = 9;
+            comboBox3.SelectedIndexChanged += comboBox3_SelectedIndexChanged;
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Location = new Point(5, 89);
+            label24.Name = "label24";
+            label24.Size = new Size(123, 15);
+            label24.TabIndex = 8;
+            label24.Text = "Doanh Thu Theo Năm";
             // 
             // label23
             // 
             label23.AutoSize = true;
-            label23.Location = new Point(25, 51);
+            label23.Location = new Point(5, 48);
             label23.Name = "label23";
-            label23.Size = new Size(116, 15);
+            label23.Size = new Size(136, 15);
             label23.TabIndex = 6;
-            label23.Text = " rút gọn theo tháng :";
+            label23.Text = "Doanh Thu Theo Tháng :";
             // 
             // label22
             // 
@@ -783,21 +1010,21 @@ namespace motelManageMent
             label22.TabIndex = 5;
             label22.Text = "Thông số";
             // 
-            // label21
+            // sumDoanhthu
             // 
-            label21.AutoSize = true;
-            label21.FlatStyle = FlatStyle.Flat;
-            label21.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label21.Location = new Point(25, 594);
-            label21.Name = "label21";
-            label21.Size = new Size(145, 21);
-            label21.TabIndex = 4;
-            label21.Text = "Tổng Doanh Thu :";
+            sumDoanhthu.AutoSize = true;
+            sumDoanhthu.FlatStyle = FlatStyle.Flat;
+            sumDoanhthu.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            sumDoanhthu.Location = new Point(25, 302);
+            sumDoanhthu.Name = "sumDoanhthu";
+            sumDoanhthu.Size = new Size(145, 21);
+            sumDoanhthu.TabIndex = 4;
+            sumDoanhthu.Text = "Tổng Doanh Thu :";
             // 
             // orderSum
             // 
             orderSum.AutoSize = true;
-            orderSum.Location = new Point(25, 244);
+            orderSum.Location = new Point(25, 251);
             orderSum.Name = "orderSum";
             orderSum.Size = new Size(44, 15);
             orderSum.TabIndex = 2;
@@ -806,7 +1033,7 @@ namespace motelManageMent
             // CustomerSum
             // 
             CustomerSum.AutoSize = true;
-            CustomerSum.Location = new Point(25, 209);
+            CustomerSum.Location = new Point(25, 216);
             CustomerSum.Name = "CustomerSum";
             CustomerSum.Size = new Size(44, 15);
             CustomerSum.TabIndex = 1;
@@ -815,7 +1042,7 @@ namespace motelManageMent
             // RoomSum
             // 
             RoomSum.AutoSize = true;
-            RoomSum.Location = new Point(25, 172);
+            RoomSum.Location = new Point(25, 179);
             RoomSum.Name = "RoomSum";
             RoomSum.Size = new Size(44, 15);
             RoomSum.TabIndex = 0;
@@ -826,7 +1053,7 @@ namespace motelManageMent
             label20.AutoSize = true;
             label20.FlatStyle = FlatStyle.Flat;
             label20.Font = new Font("Segoe UI", 16F, FontStyle.Bold | FontStyle.Italic);
-            label20.Location = new Point(290, 11);
+            label20.Location = new Point(311, 0);
             label20.Name = "label20";
             label20.Size = new Size(229, 30);
             label20.TabIndex = 2;
@@ -835,31 +1062,33 @@ namespace motelManageMent
             // panel2
             // 
             panel2.BackColor = SystemColors.Highlight;
-            panel2.Controls.Add(button5);
+            panel2.Controls.Add(button15);
             panel2.Controls.Add(button4);
             panel2.Controls.Add(button3);
             panel2.Controls.Add(button2);
             panel2.Controls.Add(button1);
             panel2.Controls.Add(label3);
-            panel2.Controls.Add(label2);
-            panel2.Controls.Add(label1);
             panel2.Location = new Point(3, 3);
             panel2.Name = "panel2";
             panel2.Size = new Size(200, 726);
             panel2.TabIndex = 0;
+            panel2.Paint += panel2_Paint_1;
             // 
-            // button5
+            // button15
             // 
-            button5.Location = new Point(0, 598);
-            button5.Name = "button5";
-            button5.Size = new Size(200, 108);
-            button5.TabIndex = 8;
-            button5.Text = "button5";
-            button5.UseVisualStyleBackColor = true;
+            button15.Image = (Image)resources.GetObject("button15.Image");
+            button15.Location = new Point(54, 49);
+            button15.Name = "button15";
+            button15.Size = new Size(92, 84);
+            button15.TabIndex = 8;
+            button15.UseVisualStyleBackColor = true;
             // 
             // button4
             // 
-            button4.Location = new Point(0, 478);
+            button4.FlatAppearance.BorderColor = Color.Black;
+            button4.FlatAppearance.BorderSize = 3;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.Location = new Point(0, 560);
             button4.Name = "button4";
             button4.Size = new Size(200, 108);
             button4.TabIndex = 7;
@@ -869,17 +1098,24 @@ namespace motelManageMent
             // 
             // button3
             // 
-            button3.Location = new Point(0, 364);
+            button3.BackColor = SystemColors.Highlight;
+            button3.FlatAppearance.BorderColor = Color.Black;
+            button3.FlatAppearance.BorderSize = 3;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.Location = new Point(0, 446);
             button3.Name = "button3";
             button3.Size = new Size(200, 108);
             button3.TabIndex = 6;
             button3.Text = "Đặt phòng";
-            button3.UseVisualStyleBackColor = true;
+            button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
             // 
             // button2
             // 
-            button2.Location = new Point(0, 250);
+            button2.FlatAppearance.BorderColor = Color.Black;
+            button2.FlatAppearance.BorderSize = 3;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.Location = new Point(0, 332);
             button2.Name = "button2";
             button2.Size = new Size(200, 108);
             button2.TabIndex = 5;
@@ -889,8 +1125,10 @@ namespace motelManageMent
             // 
             // button1
             // 
-            button1.FlatStyle = FlatStyle.System;
-            button1.Location = new Point(0, 136);
+            button1.FlatAppearance.BorderColor = Color.Black;
+            button1.FlatAppearance.BorderSize = 3;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.Location = new Point(0, 218);
             button1.Name = "button1";
             button1.Size = new Size(200, 108);
             button1.TabIndex = 4;
@@ -901,85 +1139,52 @@ namespace motelManageMent
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(98, 104);
+            label3.Location = new Point(79, 136);
             label3.Name = "label3";
             label3.Size = new Size(38, 15);
             label3.TabIndex = 3;
             label3.Text = "label3";
             // 
-            // label2
+            // comboBox5
             // 
-            label2.AutoSize = true;
-            label2.Location = new Point(25, 104);
-            label2.Name = "label2";
-            label2.Size = new Size(38, 15);
-            label2.TabIndex = 2;
-            label2.Text = "label2";
+            comboBox5.FormattingEnabled = true;
+            comboBox5.Location = new Point(582, 248);
+            comboBox5.Name = "comboBox5";
+            comboBox5.Size = new Size(30, 23);
+            comboBox5.TabIndex = 1;
             // 
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(62, 50);
+            label1.Location = new Point(535, 251);
             label1.Name = "label1";
-            label1.Size = new Size(38, 15);
-            label1.TabIndex = 1;
-            label1.Text = "label1";
+            label1.Size = new Size(41, 15);
+            label1.TabIndex = 13;
+            label1.Text = "Thứ tự";
             // 
-            // chart4
+            // textBox1
             // 
-            chartArea3.Name = "ChartArea1";
-            chart4.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            chart4.Legends.Add(legend3);
-            chart4.Location = new Point(13, 387);
-            chart4.Name = "chart4";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            chart4.Series.Add(series3);
-            chart4.Size = new Size(492, 292);
-            chart4.TabIndex = 5;
-            chart4.Text = "chart4";
+            textBox1.Location = new Point(212, 238);
+            textBox1.Multiline = true;
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(242, 32);
+            textBox1.TabIndex = 14;
             // 
-            // comboBox4
+            // button16
             // 
-            comboBox4.FormattingEnabled = true;
-            comboBox4.Location = new Point(147, 86);
-            comboBox4.Name = "comboBox4";
-            comboBox4.Size = new Size(148, 23);
-            comboBox4.TabIndex = 9;
-            // 
-            // label24
-            // 
-            label24.AutoSize = true;
-            label24.Location = new Point(25, 89);
-            label24.Name = "label24";
-            label24.Size = new Size(116, 15);
-            label24.TabIndex = 8;
-            label24.Text = " rút gọn theo tháng :";
-            // 
-            // comboBox5
-            // 
-            comboBox5.FormattingEnabled = true;
-            comboBox5.Location = new Point(147, 126);
-            comboBox5.Name = "comboBox5";
-            comboBox5.Size = new Size(148, 23);
-            comboBox5.TabIndex = 11;
-            // 
-            // label25
-            // 
-            label25.AutoSize = true;
-            label25.Location = new Point(25, 129);
-            label25.Name = "label25";
-            label25.Size = new Size(116, 15);
-            label25.TabIndex = 10;
-            label25.Text = " rút gọn theo tháng :";
+            button16.Image = (Image)resources.GetObject("button16.Image");
+            button16.Location = new Point(460, 238);
+            button16.Name = "button16";
+            button16.Size = new Size(44, 33);
+            button16.TabIndex = 15;
+            button16.UseVisualStyleBackColor = true;
+            button16.Click += button16_Click;
             // 
             // AdminDashboard
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1024, 720);
+            ClientSize = new Size(1021, 720);
             Controls.Add(panel1);
             Name = "AdminDashboard";
             Text = "Form2";
@@ -1013,7 +1218,6 @@ namespace motelManageMent
             panel10.PerformLayout();
             panel2.ResumeLayout(false);
             panel2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)chart4).EndInit();
             ResumeLayout(false);
         }
 
@@ -1021,13 +1225,9 @@ namespace motelManageMent
 
         private Panel panel1;
         private Panel panel2;
-        private Label label3;
-        private Label label2;
-        private Label label1;
         private Button button3;
         private Button button2;
         private Button button1;
-        private Button button5;
         private Button button4;
         private Panel panel3;
         private TabControl tabControl1;
@@ -1084,23 +1284,42 @@ namespace motelManageMent
         private Label label19;
         private Label label13;
         private TabPage tabPage5;
-        private Panel panel9;
-        private Label label20;
         private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
+        private Panel panel9;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
         private Panel panel10;
-        private Label label21;
+        private Button button11;
+        private Button button10;
+        private ComboBox comboBox4;
+        private ComboBox comboBox3;
+        private Label label24;
+        private Label label23;
+        private Label label22;
+        private Label sumDoanhthu;
         private Label orderSum;
         private Label CustomerSum;
         private Label RoomSum;
-        private Label label22;
-        private Label label23;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart2;
-        private ComboBox comboBox3;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart3;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart4;
+        private Label label20;
+        private Label label21;
+        private Label sumOrdermonth;
+        private Button button12;
+        private TextBox sortName;
+        private Label label26;
+        private DateTimePicker ordertimesearcha;
+        private CheckBox checkBox1;
+        private Label label27;
+        private Label label28;
+        private DateTimePicker ordertimesearchb;
+        private Button button13;
+        private TextBox customermnsearch;
+        private Button button14;
+        private Button button5;
+        private Label label3;
+        private Button button15;
+        private Label label1;
         private ComboBox comboBox5;
-        private Label label25;
-        private ComboBox comboBox4;
-        private Label label24;
+        private TextBox textBox1;
+        private Button button16;
     }
 }
